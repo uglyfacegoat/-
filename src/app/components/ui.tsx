@@ -4,48 +4,17 @@ import { COLORS } from "../theme";
 export function LogoMark() {
   return (
     <div className="flex items-center gap-3">
-      <div
-        className="flex h-10 w-10 items-center justify-center rounded-[8px]"
-        style={{
-          background: "rgba(247,245,241,0.12)",
-          border: "1px solid rgba(247,245,241,0.28)",
-        }}
-      >
-        <svg width="24" height="24" viewBox="0 0 36 36" fill="none" aria-hidden>
-          <path
-            d="M6 22 L18 10 L30 22"
-            stroke="#F7F5F1"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M6 26 L30 26"
-            stroke="#AE7B43"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-          />
-          <path
-            d="M11 26 L11 22"
-            stroke="#F7F5F1"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M25 26 L25 22"
-            stroke="#F7F5F1"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
+      <img
+        src="/favicon.svg?v=2"
+        alt=""
+        aria-hidden="true"
+        className="-ml-3 h-[84px] w-[84px] translate-y-1 shrink-0 md:-ml-5 md:h-[98px] md:w-[98px]"
+      />
       <div className="leading-tight">
-        <div style={{ color: COLORS.white, fontWeight: 800 }}>
-          Хребет Навеса
-        </div>
+        <div style={{ color: "#071017", fontWeight: 800 }}>Хребет Навеса</div>
         <div
           style={{
-            color: "rgba(247,245,241,0.66)",
+            color: "rgba(7,16,23,0.58)",
             fontSize: 11,
             letterSpacing: "0.08em",
             textTransform: "uppercase",

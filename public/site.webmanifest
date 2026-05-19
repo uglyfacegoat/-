@@ -1,0 +1,18 @@
+{
+  "name": "Хребет Навеса",
+  "short_name": "Хребет Навеса",
+  "description": "Навесы под ключ для дома, дачи и участка.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#111820",
+  "icons": [
+    {
+      "src": "/dashboard_ico.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

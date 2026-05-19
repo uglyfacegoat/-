@@ -74,13 +74,13 @@ export function TypesSection({ openModal }: Props) {
                 </div>
                 <p
                   className="mx-auto mt-5 min-h-[58px] max-w-[250px] text-[16px] leading-snug"
-                  style={{ color: COLORS.text2 }}
+                  style={{ color: "#071017" }}
                 >
                   {item.text}
                 </p>
                 <div
                   className="mt-auto pb-2 pt-7 text-[23px] font-extrabold leading-tight"
-                  style={{ color: "#8E5B2F" }}
+                  style={{ color: "#071017" }}
                 >
                   {item.price}
                 </div>

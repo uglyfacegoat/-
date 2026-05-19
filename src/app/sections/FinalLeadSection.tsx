@@ -1,8 +1,8 @@
 import {
-  Bolt,
   Calculator,
-  Columns3,
-  DraftingCompass,
+  Landmark,
+  Layers,
+  Nut,
   SearchCheck,
   ShieldCheck,
   type LucideIcon,
@@ -12,15 +12,15 @@ import { COLORS } from "../theme";
 
 const topItems = [
   {
-    icon: DraftingCompass,
+    icon: Layers,
     title: "Фермы и балки",
   },
   {
-    icon: Columns3,
+    icon: Landmark,
     title: "Опоры и основания",
   },
   {
-    icon: Bolt,
+    icon: Nut,
     title: "Крепления и монтаж",
   },
 ] satisfies Array<{ icon: LucideIcon; title: string }>;

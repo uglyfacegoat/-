@@ -108,7 +108,7 @@ export function CasesSection() {
                         ? "max-w-[310px] text-[18px]"
                         : "max-w-[230px] text-[15px]"
                     }`}
-                    style={{ color: COLORS.text2 }}
+                    style={{ color: "#071017" }}
                   >
                     {item.params}
                   </p>
@@ -116,7 +116,7 @@ export function CasesSection() {
                     className={`mt-auto pt-5 font-extrabold leading-tight transition-all duration-700 ${
                       active ? "text-[28px]" : "text-[20px]"
                     }`}
-                    style={{ color: "#8E5B2F" }}
+                    style={{ color: "#071017" }}
                   >
                     {item.price}
                   </div>
@@ -171,13 +171,13 @@ export function CasesSection() {
                 </h3>
                 <p
                   className="mt-4 text-[17px] leading-snug"
-                  style={{ color: COLORS.text2 }}
+                  style={{ color: "#071017" }}
                 >
                   {item.params}
                 </p>
                 <div
                   className="mt-auto pt-5 text-[23px] font-extrabold leading-tight"
-                  style={{ color: "#8E5B2F" }}
+                  style={{ color: "#071017" }}
                 >
                   {item.price}
                 </div>

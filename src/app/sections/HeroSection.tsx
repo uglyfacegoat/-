@@ -17,9 +17,9 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
       <header
         className="relative z-10 border-b"
         style={{
-          background: "linear-gradient(180deg, #182026 0%, #11181D 100%)",
-          borderColor: "rgba(247,245,241,0.16)",
-          boxShadow: "0 8px 24px rgba(17,24,29,0.18)",
+          background: "linear-gradient(180deg, #F2ECE3 0%, #EAE1D6 100%)",
+          borderColor: "rgba(174,123,67,0.22)",
+          boxShadow: "0 8px 24px rgba(31,36,41,0.08)",
         }}
       >
         <div className="mx-auto flex h-[86px] max-w-none items-center justify-between gap-4 px-5 md:px-8 lg:px-[clamp(80px,5vw,150px)]">
@@ -27,21 +27,27 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
 
           <nav
             className="hidden items-center gap-8 text-[14px] font-bold xl:flex"
-            style={{ color: "rgba(247,245,241,0.72)" }}
+            style={{ color: "rgba(7,16,23,0.68)" }}
           >
-            <a className="transition-colors hover:text-white" href="#benefits">
+            <a
+              className="transition-colors hover:text-[#071017]"
+              href="#benefits"
+            >
               Преимущества
             </a>
-            <a className="transition-colors hover:text-white" href="#types">
+            <a className="transition-colors hover:text-[#071017]" href="#types">
               Виды
             </a>
-            <a className="transition-colors hover:text-white" href="#cases">
+            <a className="transition-colors hover:text-[#071017]" href="#cases">
               Примеры
             </a>
-            <a className="transition-colors hover:text-white" href="#process">
+            <a
+              className="transition-colors hover:text-[#071017]"
+              href="#process"
+            >
               Как работаем
             </a>
-            <a className="transition-colors hover:text-white" href="#faq">
+            <a className="transition-colors hover:text-[#071017]" href="#faq">
               FAQ
             </a>
           </nav>
@@ -51,7 +57,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               className="text-[15px] font-extrabold whitespace-nowrap"
               href="tel:+74951186060"
               data-goal="phone_click"
-              style={{ color: COLORS.white }}
+              style={{ color: "#071017" }}
             >
               +7 (495) 118-60-60
             </a>
@@ -64,12 +70,12 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex h-11 w-11 items-center justify-center rounded-[12px] md:hidden"
             style={{
-              background: "rgba(247,245,241,0.08)",
-              border: "1px solid rgba(247,245,241,0.14)",
+              background: "rgba(7,16,23,0.06)",
+              border: "1px solid rgba(7,16,23,0.12)",
             }}
             aria-label="Меню"
           >
-            <Menu size={21} color={COLORS.white} />
+            <Menu size={21} color="#071017" />
           </button>
         </div>
 
@@ -77,9 +83,9 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
           <div
             className="mx-5 mb-5 grid gap-3 rounded-[18px] p-4 text-[14px] font-bold md:hidden"
             style={{
-              background: "rgba(247,245,241,0.08)",
-              color: COLORS.white,
-              border: "1px solid rgba(247,245,241,0.14)",
+              background: "#F7F5F1",
+              color: "#071017",
+              border: "1px solid rgba(174,123,67,0.18)",
             }}
           >
             <a href="#benefits" onClick={() => setMenuOpen(false)}>

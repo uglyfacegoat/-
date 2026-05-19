@@ -96,7 +96,8 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   key={item.q}
                   className="overflow-hidden rounded-[18px] transition-colors"
                   style={{
-                    background: faqOpen === index ? COLORS.warmBg : COLORS.white,
+                    background:
+                      faqOpen === index ? COLORS.warmBg : COLORS.white,
                     border: `1px solid ${
                       faqOpen === index ? COLORS.bronze : COLORS.border
                     }`,
@@ -105,14 +106,10 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   <button
                     type="button"
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-extrabold"
-                    onClick={() =>
-                      setFaqOpen(faqOpen === index ? null : index)
-                    }
+                    onClick={() => setFaqOpen(faqOpen === index ? null : index)}
                   >
                     <span>
-                      <span style={{ color: COLORS.bronze }}>
-                        0{index + 1}
-                      </span>{" "}
+                      <span style={{ color: COLORS.bronze }}>0{index + 1}</span>{" "}
                       {item.q}
                     </span>
                     <Plus
