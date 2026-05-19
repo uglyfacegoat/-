@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 
 export function LogoMark() {
   return (
@@ -42,7 +43,10 @@ export function Button({
   const hover = variant === "bronze" ? "#946737" : COLORS.graphite;
   return (
     <button
-      onClick={onClick}
+      onClick={() => {
+        trackGoal("cta_click");
+        onClick?.();
+      }}
       data-goal="cta_click"
       className={`h-12 rounded-[14px] px-6 text-sm font-bold uppercase tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 ${className}`}
       style={{ background: bg, color: COLORS.white }}

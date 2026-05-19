@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Check, Plus, Send, ShieldCheck } from "lucide-react";
 import { faqs, TYPES } from "../data";
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 import { formatRuPhone, isValidRuPhone } from "../utils/phone";
 
 type Props = {
@@ -19,6 +20,24 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
 
+  const messengers = [
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/74951186060",
+      goal: "whatsapp_click" as const,
+    },
+    {
+      label: "Telegram",
+      href: "https://t.me/khrebetnavesa",
+      goal: "telegram_click" as const,
+    },
+    {
+      label: "Max",
+      href: "https://max.ru/khrebetnavesa",
+      goal: "max_click" as const,
+    },
+  ];
+
   const submitLead = (event: FormEvent) => {
     event.preventDefault();
     if (trap) return;
@@ -27,6 +46,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
       return;
     }
     setError("");
+    trackGoal("lead_submit");
     setSent(true);
   };
 
@@ -40,7 +60,6 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
       }}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#D9D4CC]" />
-      <div className="pointer-events-none absolute right-[-14%] top-[-18%] h-[520px] w-[520px] rounded-full bg-[#AE7B43]/10 blur-3xl" />
 
       <div className="mx-auto max-w-[1500px] px-5 py-16 md:px-8 md:py-20 lg:px-12 xl:px-20">
         <div className="mx-auto max-w-[900px] text-center">
@@ -59,14 +78,15 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
             className="mt-5 text-[34px] font-black leading-[1.1] tracking-[-0.01em] md:text-[46px]"
             style={{ color: "#071017" }}
           >
-            Остались вопросы или нужен расчет?
+            Рассчитаем стоимость навеса под ваш дом или участок
           </h2>
           <p
             className="mx-auto mt-4 max-w-[720px] text-[17px] font-bold leading-relaxed md:text-[19px]"
             style={{ color: COLORS.text2 }}
           >
-            Слева собрали частые вопросы, справа можно сразу оставить заявку на
-            расчет навеса под ваш участок.
+            Напишите, какой навес нужен: для автомобиля, террасы, входа или
+            двора. Можно добавить размеры или фото места установки в
+            комментарии - так расчет будет точнее.
           </p>
         </div>
 
@@ -75,7 +95,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
             className="rounded-[28px] border bg-white/86 p-5 md:p-7"
             style={{
               borderColor: COLORS.border,
-              boxShadow: "0 24px 70px rgba(31,36,41,0.1)",
+              boxShadow: "0 12px 32px rgba(174,123,67,0.1)",
             }}
           >
             <div className="mb-5">
@@ -138,7 +158,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
             style={{
               borderColor: "rgba(174,123,67,0.28)",
               boxShadow:
-                "0 34px 100px rgba(31,36,41,0.18), inset 0 1px 0 rgba(255,255,255,0.9)",
+                "0 16px 42px rgba(174,123,67,0.13), inset 0 1px 0 rgba(255,255,255,0.9)",
             }}
           >
             <div
@@ -159,13 +179,37 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   </h3>
                 </div>
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/10">
-                  <Send size={25} color="#C69A66" strokeWidth={2.2} />
+                  <Send
+                    size={25}
+                    color="#C69A66"
+                    strokeWidth={2.2}
+                    className="-translate-x-0.5 translate-y-0.5"
+                  />
                 </div>
               </div>
               <p className="mt-4 max-w-[420px] text-[15px] font-bold leading-relaxed text-white/68">
-                Оставьте телефон и пару деталей. Мы уточним задачу и дадим
-                ориентир по стоимости.
+                Без навязывания. Сначала уточним задачу и дадим ориентир по
+                стоимости.
               </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {messengers.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-goal={item.goal}
+                    onClick={() => trackGoal(item.goal)}
+                    className="rounded-[12px] border px-3 py-2 text-[12px] font-extrabold uppercase tracking-[0.04em] transition-colors hover:bg-white/10"
+                    style={{
+                      borderColor: "rgba(198,154,102,0.42)",
+                      color: "#F7F5F1",
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
 
             <form onSubmit={submitLead} className="grid gap-4 p-6 md:p-8">
@@ -253,7 +297,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   boxShadow: "0 14px 32px rgba(142,91,47,0.28)",
                 }}
               >
-                Отправить заявку
+                Получить расчет
               </button>
 
               <p

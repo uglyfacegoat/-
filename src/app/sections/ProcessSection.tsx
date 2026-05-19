@@ -27,7 +27,7 @@ export function ProcessSection() {
             {steps.map(({ icon: Icon, title, text }, index) => (
               <article
                 key={title}
-                className="relative flex min-h-[235px] flex-col items-center px-5 pt-10 text-center"
+                className="relative flex min-h-[255px] flex-col items-center px-5 pt-10 text-center"
               >
                 {index < steps.length - 1 && (
                   <div
@@ -57,7 +57,7 @@ export function ProcessSection() {
                   {title}
                 </h3>
                 <p
-                  className="mt-6 max-w-[210px] text-[14px] leading-relaxed"
+                  className="mt-6 max-w-[230px] text-[14px] leading-relaxed"
                   style={{ color: COLORS.text2 }}
                 >
                   {text}

@@ -1,7 +1,12 @@
 import { why } from "../data";
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 
-export function ReliabilitySection() {
+type Props = {
+  openModal: (opts?: { title?: string; subtitle?: string }) => void;
+};
+
+export function ReliabilitySection({ openModal }: Props) {
   return (
     <section
       id="benefits"
@@ -25,17 +30,36 @@ export function ReliabilitySection() {
             креплениях, неподходящей кровли и спешки при монтаже. Мы не идем по
             этому пути.
           </p>
+          <button
+            type="button"
+            onClick={() => {
+              trackGoal("cta_click");
+              openModal({
+                title: "Получить расчет без слабой конструкции",
+                subtitle:
+                  "Оставьте телефон и коротко опишите задачу. Мы посчитаем навес без экономии на каркасе, креплениях и монтаже.",
+              });
+            }}
+            className="mt-7 min-h-[52px] rounded-[14px] px-8 text-[13px] font-extrabold uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
+            style={{
+              background: "#2F3438",
+              color: COLORS.white,
+              boxShadow: "0 10px 24px rgba(47,52,56,0.12)",
+            }}
+          >
+            Получить расчет без слабой конструкции
+          </button>
         </div>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {why.map(({ icon, iconClassName, title, text }) => (
             <article
               key={title}
-              className="grid min-h-[390px] grid-rows-[170px_76px_1fr] items-start justify-items-center rounded-[18px] border px-7 pb-9 pt-9 text-center"
+              className="grid min-h-[390px] grid-rows-[170px_102px_1fr] items-start justify-items-center rounded-[18px] border px-7 pb-9 pt-9 text-center"
               style={{
                 borderColor: COLORS.border,
                 background: COLORS.white,
-                boxShadow: "0 10px 28px rgba(31, 36, 41, 0.06)",
+                boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
               }}
             >
               <span className="relative flex h-[170px] w-full items-center justify-center overflow-visible">
@@ -48,13 +72,13 @@ export function ReliabilitySection() {
                 />
               </span>
               <h3
-                className="flex max-w-[270px] items-center whitespace-pre-line text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
+                className="flex max-w-[270px] translate-y-10 items-end whitespace-pre-line text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
                 style={{ color: "#071017" }}
               >
                 {title}
               </h3>
               <p
-                className="mt-7 max-w-[310px] text-[16px] leading-[1.55]"
+                className="mt-0 max-w-[310px] text-[16px] leading-[1.55]"
                 style={{ color: COLORS.text2 }}
               >
                 {text}

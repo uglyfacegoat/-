@@ -1,4 +1,5 @@
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 
 export function Footer() {
   return (
@@ -15,11 +16,12 @@ export function Footer() {
           </div>
         </div>
         <a
-          href="tel:+74951234567"
+          href="tel:+74951186060"
           data-goal="phone_click"
+          onClick={() => trackGoal("phone_click")}
           style={{ color: COLORS.white, fontWeight: 700 }}
         >
-          +7 (495) 123-45-67
+          +7 (495) 118-60-60
         </a>
         <a id="privacy" href="#" style={{ color: "rgba(247,245,241,0.72)" }}>
           Политика конфиденциальности

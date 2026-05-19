@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { canopyTypes, materials } from "../data";
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 
 type Props = {
   openModal: (opts?: { type?: string; title?: string }) => void;
@@ -53,8 +54,8 @@ export function TypesSection({ openModal }: Props) {
                   borderColor: active ? "#AE7B43" : COLORS.border,
                   background: COLORS.white,
                   boxShadow: active
-                    ? "0 14px 34px rgba(31,36,41,0.1)"
-                    : "0 8px 22px rgba(31,36,41,0.045)",
+                    ? "0 12px 28px rgba(174,123,67,0.14)"
+                    : "0 8px 20px rgba(174,123,67,0.08)",
                 }}
               >
                 <h3
@@ -94,7 +95,7 @@ export function TypesSection({ openModal }: Props) {
           style={{
             borderColor: "#AE7B43",
             background: COLORS.white,
-            boxShadow: "0 18px 45px rgba(31,36,41,0.1)",
+            boxShadow: "0 14px 34px rgba(174,123,67,0.14)",
           }}
         >
           <div className="overflow-hidden rounded-[16px]">
@@ -135,12 +136,13 @@ export function TypesSection({ openModal }: Props) {
             <div className="mt-auto pt-8">
               <button
                 type="button"
-                onClick={() =>
+                onClick={() => {
+                  trackGoal("cta_click");
                   openModal({
                     type: selectedCanopyItem.title.toLowerCase(),
                     title: selectedCanopyItem.title,
-                  })
-                }
+                  });
+                }}
                 className="min-h-[52px] rounded-[14px] px-9 py-4 text-[13px] font-extrabold uppercase tracking-[0.02em]"
                 style={{
                   background: "#AE7B43",
@@ -157,10 +159,10 @@ export function TypesSection({ openModal }: Props) {
           {materials.map((item) => (
             <article
               key={item.title}
-              className="overflow-hidden rounded-[18px] border bg-white transition-transform duration-200 hover:-translate-y-0.5"
+              className="flex flex-col overflow-hidden rounded-[18px] border bg-white transition-transform duration-200 hover:-translate-y-0.5"
               style={{
                 borderColor: COLORS.border,
-                boxShadow: "0 8px 22px rgba(31,36,41,0.045)",
+                boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
               }}
             >
               <div className="h-[205px] overflow-hidden bg-white md:h-[220px] xl:h-[235px] 2xl:h-[255px]">
@@ -172,21 +174,21 @@ export function TypesSection({ openModal }: Props) {
                   decoding="async"
                 />
               </div>
-              <div className="px-10 pb-9 pt-6 md:px-11 md:pb-10 md:pt-7">
+              <div className="flex flex-1 flex-col px-10 pb-9 pt-6 md:px-11 md:pb-10 md:pt-7">
                 <h3
-                  className="text-[30px] font-extrabold leading-tight tracking-[-0.01em] md:text-[34px]"
+                  className="min-h-[82px] text-[30px] font-extrabold leading-tight tracking-[-0.01em] md:text-[34px]"
                   style={{ color: "#071017" }}
                 >
                   {item.title}
                 </h3>
                 <p
-                  className="mt-4 max-w-[520px] text-[17px] leading-relaxed md:text-[18px]"
+                  className="mt-2 min-h-[126px] max-w-[520px] text-[17px] leading-relaxed md:text-[18px]"
                   style={{ color: COLORS.text2 }}
                 >
                   {item.text}
                 </p>
                 <div
-                  className="mt-7 text-[21px] font-extrabold md:text-[22px]"
+                  className="mt-auto pt-6 text-[21px] font-extrabold md:text-[22px]"
                   style={{ color: "#8E5B2F" }}
                 >
                   Ориентир: {item.price}

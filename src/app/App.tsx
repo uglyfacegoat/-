@@ -9,6 +9,7 @@ import { ProcessSection } from "./sections/ProcessSection";
 import { ReliabilitySection } from "./sections/ReliabilitySection";
 import { TypesSection } from "./sections/TypesSection";
 import { COLORS } from "./theme";
+import { trackGoal } from "./utils/analytics";
 
 export default function App() {
   const [modal, setModal] = useState<{
@@ -22,7 +23,10 @@ export default function App() {
 
   const openModal = (
     opts: { type?: string; title?: string; subtitle?: string } = {},
-  ) => setModal({ open: true, ...opts });
+  ) => {
+    trackGoal("modal_open");
+    setModal({ open: true, ...opts });
+  };
 
   return (
     <div style={{ background: COLORS.warmBg, color: COLORS.text }}>
@@ -31,9 +35,9 @@ export default function App() {
         setMenuOpen={setMenuOpen}
         openModal={() => openModal()}
       />
-      <ReliabilitySection />
+      <ReliabilitySection openModal={openModal} />
       <TypesSection openModal={openModal} />
-      <CasesSection />
+      <CasesSection openModal={openModal} />
       <ProcessSection />
       <FinalLeadSection />
       <LeadRequestSection faqOpen={faqOpen} setFaqOpen={setFaqOpen} />

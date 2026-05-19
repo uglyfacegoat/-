@@ -1,9 +1,10 @@
-import { Menu } from "lucide-react";
+import { Menu, PhoneCall } from "lucide-react";
 import { heroAdvantages } from "../data";
 import { COLORS } from "../theme";
 import { Button, LogoMark } from "../components/ui";
 import heroReference from "../../assets/hero-reference.png";
 import heroReferenceLarge from "../../assets/hero-reference-large.png";
+import { trackGoal } from "../utils/analytics";
 
 type Props = {
   menuOpen: boolean;
@@ -57,6 +58,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               className="text-[15px] font-extrabold whitespace-nowrap"
               href="tel:+74951186060"
               data-goal="phone_click"
+              onClick={() => trackGoal("phone_click")}
               style={{ color: "#071017" }}
             >
               +7 (495) 118-60-60
@@ -66,17 +68,32 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             </Button>
           </div>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="flex h-11 w-11 items-center justify-center rounded-[12px] md:hidden"
-            style={{
-              background: "rgba(7,16,23,0.06)",
-              border: "1px solid rgba(7,16,23,0.12)",
-            }}
-            aria-label="Меню"
-          >
-            <Menu size={21} color="#071017" />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href="tel:+74951186060"
+              data-goal="phone_click"
+              onClick={() => trackGoal("phone_click")}
+              className="flex h-11 w-11 items-center justify-center rounded-[12px]"
+              style={{
+                background: "rgba(174,123,67,0.12)",
+                border: "1px solid rgba(174,123,67,0.26)",
+              }}
+              aria-label="Позвонить"
+            >
+              <PhoneCall size={20} color="#8E5B2F" strokeWidth={2.2} />
+            </a>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex h-11 w-11 items-center justify-center rounded-[12px]"
+              style={{
+                background: "rgba(7,16,23,0.06)",
+                border: "1px solid rgba(7,16,23,0.12)",
+              }}
+              aria-label="Меню"
+            >
+              <Menu size={21} color="#071017" />
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
@@ -103,7 +120,11 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             <a href="#faq" onClick={() => setMenuOpen(false)}>
               FAQ
             </a>
-            <a href="tel:+74951186060" data-goal="phone_click">
+            <a
+              href="tel:+74951186060"
+              data-goal="phone_click"
+              onClick={() => trackGoal("phone_click")}
+            >
               +7 (495) 118-60-60
             </a>
           </div>
@@ -160,11 +181,23 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               </p>
             </div>
 
-            <div className="mt-11 grid max-w-[820px] gap-0 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <Button onClick={openModal} className="h-[52px] px-8">
+                Рассчитать стоимость
+              </Button>
+              <span
+                className="max-w-[360px] text-[13px] font-bold leading-relaxed"
+                style={{ color: COLORS.text3 }}
+              >
+                Без навязывания: сначала уточним задачу и дадим ориентир.
+              </span>
+            </div>
+
+            <div className="mt-10 grid max-w-[820px] gap-0 sm:grid-cols-2 lg:grid-cols-4">
               {heroAdvantages.map(({ icon, iconClassName, text }) => (
                 <div
                   key={text}
-                  className="border-l px-4 first:border-l-0 first:pl-0"
+                  className="border-l px-4 first:border-l-0 lg:px-5"
                   style={{
                     borderColor: COLORS.border,
                   }}

@@ -2,11 +2,16 @@ import { useEffect, useMemo, useState } from "react";
 import { Info } from "lucide-react";
 import { cases } from "../data";
 import { COLORS } from "../theme";
+import { trackGoal } from "../utils/analytics";
 
 const CASE_ROTATION_MS = 3200;
 const DESKTOP_OFFSETS = [-2, -1, 0, 1, 2];
 
-export function CasesSection() {
+type Props = {
+  openModal: (opts?: { title?: string; subtitle?: string }) => void;
+};
+
+export function CasesSection({ openModal }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -73,8 +78,8 @@ export function CasesSection() {
                 style={{
                   borderColor: active ? "#AE7B43" : COLORS.border,
                   boxShadow: active
-                    ? "0 26px 70px rgba(31,36,41,0.16)"
-                    : "0 8px 22px rgba(31,36,41,0.045)",
+                    ? "0 18px 42px rgba(174,123,67,0.14)"
+                    : "0 8px 20px rgba(174,123,67,0.08)",
                 }}
                 tabIndex={0}
                 onFocus={() => setActiveIndex(index)}
@@ -142,22 +147,27 @@ export function CasesSection() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:hidden">
-          {cases.map((item) => (
+        <div
+          className="mx-auto mt-10 max-w-[520px] xl:hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
+          {[cases[activeIndex]].map((item) => (
             <article
               key={item.title}
-              className="group flex min-h-[460px] flex-col rounded-[18px] border p-3 text-center transition-transform duration-200 hover:-translate-y-0.5"
+              className="group flex min-h-[420px] flex-col rounded-[18px] border bg-white p-3 text-center transition-transform duration-300 sm:min-h-[460px]"
               style={{
-                borderColor: COLORS.border,
-                background: COLORS.white,
-                boxShadow: "0 8px 22px rgba(31,36,41,0.045)",
+                borderColor: "#AE7B43",
+                boxShadow: "0 12px 28px rgba(174,123,67,0.12)",
               }}
             >
               <div className="overflow-hidden rounded-[12px]">
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-[235px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] md:h-[250px] xl:h-[235px] 2xl:h-[265px]"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:aspect-[16/10]"
                   loading="lazy"
                 />
               </div>
@@ -186,6 +196,22 @@ export function CasesSection() {
           ))}
         </div>
 
+        <div className="mt-5 flex justify-center gap-2 xl:hidden">
+          {cases.map((item, index) => (
+            <button
+              key={item.title}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className="h-2.5 rounded-full transition-all duration-300"
+              style={{
+                width: activeIndex === index ? 28 : 10,
+                background: activeIndex === index ? "#AE7B43" : COLORS.border,
+              }}
+              aria-label={`Показать кейс ${index + 1}`}
+            />
+          ))}
+        </div>
+
         <div className="mx-auto mt-8 flex max-w-[940px] items-start justify-center gap-5">
           <div
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
@@ -204,6 +230,27 @@ export function CasesSection() {
             Цены указаны как ориентир. Мы не даем красивую минимальную цену,
             если под ваш размер и нагрузку нужна более крепкая конструкция.
           </p>
+        </div>
+        <div className="mt-7 flex justify-center">
+          <button
+            type="button"
+            onClick={() => {
+              trackGoal("cta_click");
+              openModal({
+                title: "Рассчитать мой навес",
+                subtitle:
+                  "Оставьте телефон и пару деталей: тип навеса, примерный размер или материал. Мы дадим ориентир по стоимости.",
+              });
+            }}
+            className="min-h-[52px] rounded-[14px] px-9 py-4 text-[13px] font-extrabold uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
+            style={{
+              background: "#AE7B43",
+              color: COLORS.white,
+              boxShadow: "0 10px 24px rgba(174,123,67,0.22)",
+            }}
+          >
+            Рассчитать мой навес
+          </button>
         </div>
       </div>
     </section>

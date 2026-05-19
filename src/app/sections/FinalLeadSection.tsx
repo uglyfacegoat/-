@@ -1,29 +1,108 @@
 import {
   Calculator,
-  Landmark,
-  Layers,
-  Nut,
   SearchCheck,
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
+import type { SVGProps } from "react";
 import framePlaceholder from "../../assets/frame-placeholder.jpg";
 import { COLORS } from "../theme";
 
+type OutlineIcon = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+
+function TrussIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M7 51h50" />
+      <path d="M11 44h42" />
+      <path d="M11 44 32 12l21 32" />
+      <path d="M20 44 32 12l12 32" />
+      <path d="M20 44 32 29l12 15" />
+      <path d="M11 51v-7" />
+      <path d="M53 51v-7" />
+      <path d="M25 51v-7" />
+      <path d="M39 51v-7" />
+    </svg>
+  );
+}
+
+function FoundationIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M16 49h32" />
+      <path d="M12 55h40" />
+      <path d="M19 49v-8h10v8" />
+      <path d="M35 49v-8h10v8" />
+      <path d="M23 41V16" />
+      <path d="M41 41V16" />
+      <path d="M18 16h10" />
+      <path d="M36 16h10" />
+      <path d="M20 23h8" />
+      <path d="M36 23h8" />
+      <path d="M19 36h10" />
+      <path d="M35 36h10" />
+      <path d="M21 49h6" />
+      <path d="M37 49h6" />
+    </svg>
+  );
+}
+
+function MountingIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M16 18h22v28H16z" />
+      <path d="M38 28h14v8H38" />
+      <path d="M52 23v18" />
+      <path d="M24 52h30" />
+      <path d="M28 46v6" />
+      <path d="M46 46v6" />
+      <circle cx="23" cy="26" r="2" />
+      <circle cx="31" cy="26" r="2" />
+      <circle cx="23" cy="38" r="2" />
+      <circle cx="31" cy="38" r="2" />
+      <path d="M42 28v8" />
+    </svg>
+  );
+}
+
 const topItems = [
   {
-    icon: Layers,
+    icon: TrussIcon,
     title: "Фермы и балки",
   },
   {
-    icon: Landmark,
+    icon: FoundationIcon,
     title: "Опоры и основания",
   },
   {
-    icon: Nut,
+    icon: MountingIcon,
     title: "Крепления и монтаж",
   },
-] satisfies Array<{ icon: LucideIcon; title: string }>;
+] satisfies Array<{ icon: OutlineIcon; title: string }>;
 
 const bottomItems = [
   {
@@ -56,7 +135,7 @@ export function FinalLeadSection() {
             borderColor: "rgba(174,123,67,0.32)",
             background:
               "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 68%, #FBF8F4 100%)",
-            boxShadow: "0 20px 70px rgba(31,36,41,0.08)",
+            boxShadow: "0 12px 34px rgba(174,123,67,0.1)",
           }}
         >
           <div className="grid gap-8 lg:grid-cols-[minmax(420px,0.85fr)_minmax(620px,1.15fr)] lg:items-start xl:gap-12">
@@ -78,12 +157,19 @@ export function FinalLeadSection() {
               </p>
             </div>
 
-            <div className="relative min-h-[260px] lg:min-h-[360px]">
-              <div className="absolute inset-0 rounded-full bg-[#AE7B43]/[0.08] blur-2xl" />
+            <div className="relative min-h-[280px] lg:min-h-[390px]">
               <img
                 src={framePlaceholder}
                 alt="Заглушка схемы металлического каркаса навеса"
-                className="relative z-10 h-auto w-full object-contain"
+                className="relative z-10 mt-8 h-auto w-[106%] max-w-none object-contain lg:mt-12 lg:w-[112%]"
+                style={{
+                  WebkitMaskImage:
+                    "linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                  maskImage:
+                    "linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                  WebkitMaskComposite: "source-in",
+                  maskComposite: "intersect",
+                }}
                 width={880}
                 height={436}
                 loading="lazy"
@@ -99,7 +185,7 @@ export function FinalLeadSection() {
                 className="grid min-h-[112px] grid-cols-[82px_1fr] items-center gap-5 rounded-[18px] border bg-white px-5 py-5 sm:grid-cols-[96px_1fr] sm:px-6"
                 style={{
                   borderColor: "rgba(174,123,67,0.26)",
-                  boxShadow: "0 12px 34px rgba(31,36,41,0.045)",
+                  boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
                 }}
               >
                 <div
@@ -107,7 +193,7 @@ export function FinalLeadSection() {
                   style={{ color: "#B56F31", background: "#FBF8F4" }}
                   aria-hidden="true"
                 >
-                  <Icon size={38} strokeWidth={1.8} />
+                  <Icon className="h-12 w-12" strokeWidth={3} />
                 </div>
                 <h3 className="text-[22px] font-black leading-tight text-[#071017] md:text-[25px]">
                   {title}

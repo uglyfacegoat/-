@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { X, Check } from "lucide-react";
+import { trackGoal } from "../utils/analytics";
+import { formatRuPhone, isValidRuPhone } from "../utils/phone";
 
 type Props = {
   open: boolean;
@@ -19,34 +21,6 @@ const TYPES = [
   "над входом",
   "другое",
 ];
-
-function formatPhone(raw: string) {
-  const digits = raw.replace(/\D/g, "");
-  let d = "";
-
-  if (!digits) return "";
-  if (digits[0] === "7" || digits[0] === "8") {
-    d = digits.slice(1);
-  } else if (digits[0] === "9") {
-    d = digits;
-  } else {
-    return "+7";
-  }
-
-  if (d.length > 0 && d[0] !== "9") return "+7";
-  d = d.slice(0, 10);
-
-  let out = "+7";
-  if (d.length > 0) out += " (" + d.slice(0, 3);
-  if (d.length >= 3) out += ") " + d.slice(3, 6);
-  if (d.length >= 6) out += "-" + d.slice(6, 8);
-  if (d.length >= 8) out += "-" + d.slice(8, 10);
-  return out;
-}
-
-function isValidPhone(raw: string) {
-  return /^7?9\d{9}$/.test(raw.replace(/\D/g, "").replace(/^8/, "7"));
-}
 
 export function LeadModal({
   open,
@@ -87,11 +61,12 @@ export function LeadModal({
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (trap) return;
-    if (!isValidPhone(phone)) {
+    if (!isValidRuPhone(phone)) {
       setError("Укажите номер в формате +7 (9XX) XXX-XX-XX");
       return;
     }
     setError("");
+    trackGoal("lead_submit");
     setSent(true);
   };
 
@@ -180,7 +155,7 @@ export function LeadModal({
                 <input
                   value={phone}
                   onFocus={() => !phone && setPhone("+7")}
-                  onChange={(e) => setPhone(formatPhone(e.target.value))}
+                  onChange={(e) => setPhone(formatRuPhone(e.target.value))}
                   placeholder="+7 (999) 999-99-99"
                   inputMode="tel"
                   className="w-full h-[52px] px-4 rounded-[14px] outline-none transition-colors"
