@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { LeadModal } from "./components/lead-modal";
 import { CasesSection } from "./sections/CasesSection";
-import { FaqSection } from "./sections/FaqSection";
 import { FinalLeadSection } from "./sections/FinalLeadSection";
 import { Footer } from "./sections/Footer";
 import { HeroSection } from "./sections/HeroSection";
@@ -37,8 +36,7 @@ export default function App() {
       <CasesSection />
       <ProcessSection />
       <FinalLeadSection />
-      <LeadRequestSection />
-      <FaqSection faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
+      <LeadRequestSection faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
       <Footer />
 
       <LeadModal

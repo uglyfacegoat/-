@@ -1,30 +1,27 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { Check, X } from "lucide-react";
-import { TYPES } from "../data";
+import { Check, Plus, Send, ShieldCheck } from "lucide-react";
+import { faqs, TYPES } from "../data";
 import { COLORS } from "../theme";
 import { formatRuPhone, isValidRuPhone } from "../utils/phone";
 
-export function LeadRequestSection() {
+type Props = {
+  faqOpen: number | null;
+  setFaqOpen: (index: number | null) => void;
+};
+
+export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
   const [name, setName] = useState("");
   const [type, setType] = useState(TYPES[1]);
   const [comment, setComment] = useState("");
   const [phone, setPhone] = useState("");
   const [trap, setTrap] = useState("");
-  const [panelOpen, setPanelOpen] = useState(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
 
-  const openPhonePanel = (event: FormEvent) => {
+  const submitLead = (event: FormEvent) => {
     event.preventDefault();
     if (trap) return;
-    setPanelOpen(true);
-    setSent(false);
-    setError("");
-  };
-
-  const submitPhone = (event: FormEvent) => {
-    event.preventDefault();
     if (!isValidRuPhone(phone)) {
       setError("Укажите номер в формате +7 (9XX) XXX-XX-XX");
       return;
@@ -35,70 +32,209 @@ export function LeadRequestSection() {
 
   return (
     <section
+      id="faq"
       className="relative overflow-hidden"
-      style={{ background: COLORS.white }}
+      style={{
+        background:
+          "linear-gradient(135deg, #FFFFFF 0%, #F7F5F1 48%, #EEE7DE 100%)",
+      }}
     >
-      <div className="mx-auto max-w-[1500px] px-5 py-14 md:px-8 md:py-18 lg:px-12 xl:px-20">
-        <div className="relative grid gap-10 lg:grid-cols-[minmax(0,640px)_minmax(420px,520px)] lg:items-start lg:justify-between">
-          <div className="relative z-10">
-            <h2
-              className="max-w-[650px] text-[34px] font-black leading-[1.12] tracking-[-0.01em] md:text-[44px] lg:text-[48px]"
-              style={{ color: "#071017" }}
-            >
-              Рассчитаем стоимость навеса под ваш дом или участок
-            </h2>
-            <p
-              className="mt-5 max-w-[660px] text-[17px] font-bold leading-relaxed md:text-[19px]"
-              style={{ color: COLORS.text2 }}
-            >
-              Напишите, какой навес нужен: для автомобиля, террасы, входа или
-              двора. Можно приложить размеры или фото места установки - так
-              расчет будет точнее.
-            </p>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#D9D4CC]" />
+      <div className="pointer-events-none absolute right-[-14%] top-[-18%] h-[520px] w-[520px] rounded-full bg-[#AE7B43]/10 blur-3xl" />
 
-            <form
-              onSubmit={openPhonePanel}
-              className="mt-7 max-w-[690px] rounded-[18px] border p-5"
+      <div className="mx-auto max-w-[1500px] px-5 py-16 md:px-8 md:py-20 lg:px-12 xl:px-20">
+        <div className="mx-auto max-w-[900px] text-center">
+          <div
+            className="mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.08em]"
+            style={{
+              borderColor: "rgba(174,123,67,0.26)",
+              color: "#8E5B2F",
+              background: "rgba(255,255,255,0.7)",
+            }}
+          >
+            <ShieldCheck size={15} strokeWidth={2.1} />
+            расчет и ответы
+          </div>
+          <h2
+            className="mt-5 text-[34px] font-black leading-[1.1] tracking-[-0.01em] md:text-[46px]"
+            style={{ color: "#071017" }}
+          >
+            Остались вопросы или нужен расчет?
+          </h2>
+          <p
+            className="mx-auto mt-4 max-w-[720px] text-[17px] font-bold leading-relaxed md:text-[19px]"
+            style={{ color: COLORS.text2 }}
+          >
+            Слева собрали частые вопросы, справа можно сразу оставить заявку на
+            расчет навеса под ваш участок.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(430px,0.78fr)] lg:items-start">
+          <div
+            className="rounded-[28px] border bg-white/86 p-5 md:p-7"
+            style={{
+              borderColor: COLORS.border,
+              boxShadow: "0 24px 70px rgba(31,36,41,0.1)",
+            }}
+          >
+            <div className="mb-5">
+              <div
+                className="text-[12px] font-extrabold uppercase tracking-[0.12em]"
+                style={{ color: COLORS.bronze }}
+              >
+                FAQ
+              </div>
+              <h3 className="mt-2 text-[30px] font-black leading-tight text-[#071017]">
+                Частые вопросы до первого расчета
+              </h3>
+            </div>
+
+            <div className="grid gap-3">
+              {faqs.map((item, index) => (
+                <div
+                  key={item.q}
+                  className="overflow-hidden rounded-[18px] transition-colors"
+                  style={{
+                    background: faqOpen === index ? COLORS.warmBg : COLORS.white,
+                    border: `1px solid ${
+                      faqOpen === index ? COLORS.bronze : COLORS.border
+                    }`,
+                  }}
+                >
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-[15px] font-extrabold"
+                    onClick={() =>
+                      setFaqOpen(faqOpen === index ? null : index)
+                    }
+                  >
+                    <span>
+                      <span style={{ color: COLORS.bronze }}>
+                        0{index + 1}
+                      </span>{" "}
+                      {item.q}
+                    </span>
+                    <Plus
+                      size={17}
+                      color={COLORS.graphite}
+                      className={`shrink-0 transition-transform ${
+                        faqOpen === index ? "rotate-45" : ""
+                      }`}
+                    />
+                  </button>
+                  {faqOpen === index && (
+                    <div
+                      className="px-5 pb-5 text-[14px] font-bold leading-relaxed"
+                      style={{ color: COLORS.text2 }}
+                    >
+                      {item.a}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <aside
+            className="overflow-hidden rounded-[28px] border bg-white"
+            style={{
+              borderColor: "rgba(174,123,67,0.28)",
+              boxShadow:
+                "0 34px 100px rgba(31,36,41,0.18), inset 0 1px 0 rgba(255,255,255,0.9)",
+            }}
+          >
+            <div
+              className="p-6 md:p-8"
               style={{
-                borderColor: COLORS.border,
-                background: COLORS.white,
-                boxShadow: "0 8px 22px rgba(31,36,41,0.045)",
+                background:
+                  "linear-gradient(180deg, rgba(31,36,41,0.98) 0%, rgba(47,52,56,0.96) 100%)",
+                color: COLORS.white,
               }}
             >
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="flex items-start justify-between gap-5">
+                <div>
+                  <div className="text-[12px] font-extrabold uppercase tracking-[0.12em] text-[#C69A66]">
+                    заявка на расчет
+                  </div>
+                  <h3 className="mt-3 text-[32px] font-black leading-tight md:text-[36px]">
+                    Получить расчет
+                  </h3>
+                </div>
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <Send size={25} color="#C69A66" strokeWidth={2.2} />
+                </div>
+              </div>
+              <p className="mt-4 max-w-[420px] text-[15px] font-bold leading-relaxed text-white/68">
+                Оставьте телефон и пару деталей. Мы уточним задачу и дадим
+                ориентир по стоимости.
+              </p>
+            </div>
+
+            <form onSubmit={submitLead} className="grid gap-4 p-6 md:p-8">
+              <div className="grid gap-4 md:grid-cols-2">
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   placeholder="Ваше имя"
-                  className="h-13 rounded-[12px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
+                  className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                   style={{
                     border: `1px solid ${COLORS.border}`,
                     color: COLORS.text,
+                    background: COLORS.warmBg,
                   }}
                 />
-                <select
-                  value={type}
-                  onChange={(event) => setType(event.target.value)}
-                  className="h-13 rounded-[12px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
+                <input
+                  value={phone}
+                  onFocus={() => !phone && setPhone("+7")}
+                  onChange={(event) =>
+                    setPhone(formatRuPhone(event.target.value))
+                  }
+                  placeholder="+7 (9XX) XXX-XX-XX"
+                  inputMode="tel"
+                  className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                   style={{
-                    border: `1px solid ${COLORS.border}`,
-                    color: COLORS.text2,
+                    border: `1px solid ${error ? COLORS.bronze : COLORS.border}`,
+                    color: COLORS.text,
+                    background: COLORS.warmBg,
                   }}
-                >
-                  {TYPES.map((item) => (
-                    <option key={item}>{item}</option>
-                  ))}
-                </select>
+                />
               </div>
+
+              {error && (
+                <div
+                  className="-mt-2 text-[12px] font-bold"
+                  style={{ color: COLORS.bronze }}
+                >
+                  {error}
+                </div>
+              )}
+
+              <select
+                value={type}
+                onChange={(event) => setType(event.target.value)}
+                className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
+                style={{
+                  border: `1px solid ${COLORS.border}`,
+                  color: COLORS.text2,
+                  background: COLORS.warmBg,
+                }}
+              >
+                {TYPES.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+
               <textarea
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}
-                placeholder="Комментарий"
-                rows={2}
-                className="mt-3 w-full resize-none rounded-[12px] px-4 py-3 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
+                placeholder="Комментарий: размер, материал, адрес, фото места"
+                rows={4}
+                className="w-full resize-none rounded-[14px] px-4 py-3 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                 style={{
                   border: `1px solid ${COLORS.border}`,
                   color: COLORS.text,
+                  background: COLORS.warmBg,
                 }}
               />
               <input
@@ -109,142 +245,54 @@ export function LeadRequestSection() {
                 className="hidden"
                 aria-hidden="true"
               />
+
               <button
                 type="submit"
-                className="mt-3 h-14 w-full rounded-[12px] text-[17px] font-extrabold"
-                style={{ background: "#9B622F", color: COLORS.white }}
+                className="h-15 rounded-[16px] text-[17px] font-black uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #AE7B43 0%, #8E5B2F 100%)",
+                  color: COLORS.white,
+                  boxShadow: "0 14px 32px rgba(142,91,47,0.28)",
+                }}
               >
-                Получить расчет
+                Отправить заявку
               </button>
+
               <p
-                className="mt-4 text-center text-[12px] font-bold leading-relaxed"
+                className="text-center text-[12px] font-bold leading-relaxed"
                 style={{ color: COLORS.text3 }}
               >
                 Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
               </p>
-            </form>
-          </div>
 
-          <div className="pointer-events-none absolute left-[46%] right-[35%] top-[185px] z-0 hidden h-[120px] lg:block">
-            <div
-              className="absolute left-0 top-0 h-6 w-6 rounded-full"
-              style={{
-                background: "#9B622F",
-                boxShadow: "0 0 0 5px rgba(155,98,47,0.14)",
-              }}
-            />
-            <div
-              className="absolute left-3 top-3 h-px transition-all duration-700 ease-out"
-              style={{
-                width: panelOpen ? "100%" : "0%",
-                background: COLORS.border,
-              }}
-            />
-            <div
-              className="absolute right-0 top-3 w-px transition-all delay-300 duration-500 ease-out"
-              style={{
-                height: panelOpen ? "95px" : "0px",
-                background: COLORS.border,
-              }}
-            />
-          </div>
-
-          <aside
-            className={`relative z-10 rounded-[24px] border p-6 transition-all duration-500 md:p-8 ${
-              panelOpen
-                ? "translate-x-0 opacity-100"
-                : "pointer-events-none translate-x-8 opacity-0"
-            }`}
-            style={{
-              borderColor: COLORS.border,
-              background: COLORS.white,
-              boxShadow: "0 22px 54px rgba(31,36,41,0.16)",
-            }}
-            aria-hidden={!panelOpen}
-          >
-            <button
-              type="button"
-              onClick={() => setPanelOpen(false)}
-              className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-[#F4F0EA]"
-              aria-label="Закрыть"
-            >
-              <X size={24} color={COLORS.text3} strokeWidth={1.5} />
-            </button>
-
-            <h3
-              className="pr-12 text-[26px] font-black leading-tight md:text-[30px]"
-              style={{ color: "#071017" }}
-            >
-              Рассчитать стоимость навеса
-            </h3>
-            <p
-              className="mt-4 max-w-[420px] text-[16px] font-bold leading-relaxed"
-              style={{ color: COLORS.text2 }}
-            >
-              Укажите телефон и коротко расскажите о задаче - мы свяжемся и
-              сделаем расчет.
-            </p>
-
-            <form onSubmit={submitPhone} className="mt-7">
-              <label
-                className="text-[15px] font-extrabold"
-                style={{ color: COLORS.text2 }}
-              >
-                Телефон
-              </label>
-              <input
-                value={phone}
-                onFocus={() => !phone && setPhone("+7")}
-                onChange={(event) =>
-                  setPhone(formatRuPhone(event.target.value))
-                }
-                placeholder="+7 (9XX) XXX-XX-XX"
-                inputMode="tel"
-                className="mt-2 h-14 w-full rounded-[12px] px-4 text-[20px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
+              <div
+                className={`overflow-hidden rounded-[18px] transition-all duration-500 ${
+                  sent ? "max-h-44 opacity-100" : "max-h-0 opacity-0"
+                }`}
                 style={{
-                  border: `1px solid ${error ? COLORS.bronze : COLORS.border}`,
-                  color: COLORS.text,
+                  background: "#ECF7EE",
+                  border: sent ? "1px solid rgba(78,166,90,0.22)" : "0",
                 }}
-              />
-              {error && (
-                <div
-                  className="mt-2 text-[12px] font-bold"
-                  style={{ color: COLORS.bronze }}
-                >
-                  {error}
-                </div>
-              )}
-              <button
-                type="submit"
-                className="mt-4 h-14 w-full rounded-[12px] text-[17px] font-extrabold"
-                style={{ background: "#9B622F", color: COLORS.white }}
               >
-                Отправить заявку
-              </button>
-            </form>
-
-            <div
-              className={`mt-7 overflow-hidden border-t transition-all duration-500 ${
-                sent ? "max-h-44 pt-7 opacity-100" : "max-h-0 pt-0 opacity-0"
-              }`}
-              style={{ borderColor: COLORS.border }}
-            >
-              <div className="flex items-start gap-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#4EA65A]">
-                  <Check size={30} color={COLORS.white} strokeWidth={2.4} />
-                </div>
-                <div>
-                  <h4 className="text-[22px] font-black">Заявка отправлена!</h4>
-                  <p
-                    className="mt-2 text-[15px] font-bold leading-relaxed"
-                    style={{ color: COLORS.text2 }}
-                  >
-                    Спасибо. Мы получили вашу заявку и свяжемся с вами в
-                    ближайшее время.
-                  </p>
+                <div className="flex items-start gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#4EA65A]">
+                    <Check size={24} color={COLORS.white} strokeWidth={2.4} />
+                  </div>
+                  <div>
+                    <h4 className="text-[18px] font-black text-[#071017]">
+                      Заявка отправлена
+                    </h4>
+                    <p
+                      className="mt-1 text-[14px] font-bold leading-relaxed"
+                      style={{ color: COLORS.text2 }}
+                    >
+                      Мы свяжемся с вами для уточнения деталей.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </aside>
         </div>
       </div>

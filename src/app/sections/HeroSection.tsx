@@ -3,6 +3,7 @@ import { heroAdvantages } from "../data";
 import { COLORS } from "../theme";
 import { Button, LogoMark } from "../components/ui";
 import heroReference from "../../assets/hero-reference.png";
+import heroReferenceLarge from "../../assets/hero-reference-large.png";
 
 type Props = {
   menuOpen: boolean;
@@ -21,7 +22,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
           boxShadow: "0 8px 24px rgba(17,24,29,0.18)",
         }}
       >
-        <div className="mx-auto flex h-[86px] max-w-[1920px] items-center justify-between gap-4 px-5 md:px-8 lg:px-20">
+        <div className="mx-auto flex h-[86px] max-w-none items-center justify-between gap-4 px-5 md:px-8 lg:px-[clamp(80px,5vw,150px)]">
           <LogoMark />
 
           <nav
@@ -111,10 +112,10 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               "linear-gradient(100deg, #F7F5F1 0%, #F7F5F1 44%, rgba(247,245,241,0.9) 56%, rgba(220,232,242,0.78) 100%)",
           }}
         />
-        <div className="relative mx-auto grid min-h-[720px] max-w-[1920px] gap-4 px-5 pb-0 pt-10 md:px-8 lg:grid-cols-[620px_minmax(0,1fr)] lg:items-center lg:px-20 lg:pt-12 xl:grid-cols-[680px_minmax(0,1fr)] xl:min-h-[780px]">
-          <div className="relative z-10 max-w-[700px]">
+        <div className="relative mx-auto grid min-h-[720px] max-w-none gap-4 px-5 pb-0 pt-10 md:px-8 lg:grid-cols-[620px_minmax(0,1fr)] lg:items-center lg:px-[clamp(80px,5vw,150px)] lg:pt-12 xl:min-h-[820px] xl:grid-cols-[700px_minmax(0,1fr)] 2xl:min-h-[calc(100vh-40px)] 2xl:grid-cols-[760px_minmax(0,1fr)] min-[2200px]:grid-cols-[840px_minmax(0,1fr)]">
+          <div className="relative z-10 max-w-[760px]">
             <h1
-              className="text-[38px] font-black leading-[1.08] tracking-[-0.02em] sm:text-[48px] lg:text-[58px] xl:text-[66px]"
+              className="text-[38px] font-black leading-[1.08] tracking-[-0.02em] sm:text-[48px] lg:text-[58px] xl:text-[66px] min-[2200px]:text-[74px]"
               style={{ color: "#071017" }}
             >
               <span className="block">Крепкие навесы</span>
@@ -125,7 +126,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             </h1>
 
             <p
-              className="mt-6 max-w-[620px] text-[16px] leading-[1.62] sm:text-[17px] lg:text-[18px]"
+              className="mt-6 max-w-[660px] text-[16px] leading-[1.62] sm:text-[17px] lg:text-[18px] min-[2200px]:text-[20px]"
               style={{ color: COLORS.text2 }}
             >
               Используем металлочерепицу, профлист и сотовый поликарбонат.
@@ -135,7 +136,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
 
             <div className="mt-9">
               <div
-                className="text-[30px] font-extrabold leading-tight sm:text-[36px] lg:text-[38px]"
+                className="text-[30px] font-extrabold leading-tight sm:text-[36px] lg:text-[38px] min-[2200px]:text-[44px]"
                 style={{ color: "#8E5B2F" }}
               >
                 <span className="sm:whitespace-nowrap">от 6 000 до 10 000</span>
@@ -153,7 +154,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               </p>
             </div>
 
-            <div className="mt-11 grid max-w-[780px] gap-0 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-11 grid max-w-[820px] gap-0 sm:grid-cols-2 lg:grid-cols-4">
               {heroAdvantages.map(({ icon, iconClassName, text }) => (
                 <div
                   key={text}
@@ -192,14 +193,18 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] sm:min-h-[470px] lg:min-h-[660px] xl:min-h-[720px]">
-            <img
-              src={heroReference}
-              alt="Навес для автомобиля у современного дома"
-              className="absolute bottom-[-12px] right-[-15%] h-auto w-[144%] max-w-none object-contain object-bottom drop-shadow-[0_24px_32px_rgba(31,36,41,0.18)] sm:bottom-[-18px] sm:right-[-10%] sm:w-[132%] lg:bottom-[-28px] lg:right-[-20%] lg:w-[162%] xl:bottom-[-32px] xl:right-[-19%] xl:w-[154%] 2xl:bottom-[-36px] 2xl:right-[-15%] 2xl:w-[146%]"
-              loading="eager"
-              fetchPriority="high"
-            />
+          <div className="relative min-h-[390px] sm:min-h-[470px] lg:min-h-[660px] xl:min-h-[760px] 2xl:min-h-[calc(100vh-100px)]">
+            <picture className="absolute bottom-[-34px] right-[-22%] block h-auto w-[154%] max-w-none sm:bottom-[-42px] sm:right-[-14%] sm:w-[140%] lg:bottom-[-58px] lg:right-[-22%] lg:w-[168%] xl:bottom-[-70px] xl:right-[-22%] xl:w-[162%] 2xl:bottom-[-82px] 2xl:right-[-34%] 2xl:w-[174%] min-[2200px]:bottom-[-96px] min-[2200px]:right-[-28%] min-[2200px]:w-[162%]">
+              <source media="(min-width: 1536px)" srcSet={heroReferenceLarge} />
+              <img
+                src={heroReference}
+                alt="Навес для автомобиля у современного дома"
+                className="h-auto w-full max-w-none object-contain object-bottom drop-shadow-[0_24px_32px_rgba(31,36,41,0.18)]"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
       </div>

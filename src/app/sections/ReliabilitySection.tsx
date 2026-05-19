@@ -31,14 +31,14 @@ export function ReliabilitySection() {
           {why.map(({ icon, iconClassName, title, text }) => (
             <article
               key={title}
-              className="flex min-h-[360px] flex-col items-center justify-center rounded-[18px] border px-7 py-9 text-center"
+              className="grid min-h-[390px] grid-rows-[170px_76px_1fr] items-start justify-items-center rounded-[18px] border px-7 pb-9 pt-9 text-center"
               style={{
                 borderColor: COLORS.border,
                 background: COLORS.white,
                 boxShadow: "0 10px 28px rgba(31, 36, 41, 0.06)",
               }}
             >
-              <span className="relative flex h-[152px] w-full shrink-0 items-center justify-center overflow-visible">
+              <span className="relative flex h-[170px] w-full items-center justify-center overflow-visible">
                 <img
                   src={icon}
                   alt=""
@@ -48,7 +48,7 @@ export function ReliabilitySection() {
                 />
               </span>
               <h3
-                className="mt-7 max-w-[270px] text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
+                className="flex max-w-[270px] items-center whitespace-pre-line text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
                 style={{ color: "#071017" }}
               >
                 {title}

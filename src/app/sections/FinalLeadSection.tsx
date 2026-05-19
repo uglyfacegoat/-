@@ -1,32 +1,47 @@
-import { Landmark, Layers, Wrench, ShieldCheck } from "lucide-react";
-import frameStructure from "../../assets/frame-structure.png";
+import {
+  Bolt,
+  Calculator,
+  Columns3,
+  DraftingCompass,
+  SearchCheck,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
+import framePlaceholder from "../../assets/frame-placeholder.jpg";
 import { COLORS } from "../theme";
 
-const leftNotes = [
+const topItems = [
   {
-    icon: Layers,
+    icon: DraftingCompass,
     title: "Фермы и балки",
-    text: "Рассчитываем с запасом прочности.",
   },
   {
-    icon: Landmark,
-    title: "Опоры",
-    text: "Жесткие стойки на надежных основаниях.",
+    icon: Columns3,
+    title: "Опоры и основания",
   },
-];
+  {
+    icon: Bolt,
+    title: "Крепления и монтаж",
+  },
+] satisfies Array<{ icon: LucideIcon; title: string }>;
 
-const rightNotes = [
+const bottomItems = [
+  {
+    icon: Calculator,
+    title: "Расчет нагрузки",
+    text: "Проектируем с запасом прочности",
+  },
+  {
+    icon: SearchCheck,
+    title: "Контроль узлов",
+    text: "Проверяем каждый ответственный узел",
+  },
   {
     icon: ShieldCheck,
-    title: "Крепления",
-    text: "Качественные узлы и анкерные соединения.",
+    title: "Качественный металл",
+    text: "Нормальная сталь под реальные нагрузки",
   },
-  {
-    icon: Wrench,
-    title: "Монтаж",
-    text: "Точность установки и контроль каждого узла.",
-  },
-];
+] satisfies Array<{ icon: LucideIcon; title: string; text: string }>;
 
 export function FinalLeadSection() {
   return (
@@ -34,139 +49,103 @@ export function FinalLeadSection() {
       className="relative overflow-hidden"
       style={{ background: COLORS.white }}
     >
-      <div className="mx-auto max-w-[1780px] px-5 py-12 md:px-8 md:py-16 lg:px-12 xl:px-20">
+      <div className="mx-auto max-w-[1920px] px-5 py-12 md:px-8 md:py-16 lg:px-12 xl:px-20">
         <div
-          className="relative min-h-[560px] overflow-hidden rounded-[18px] border px-6 py-8 md:px-10 md:py-10 lg:px-14"
+          className="overflow-hidden rounded-[24px] border px-6 py-8 md:px-10 md:py-10 lg:px-14 lg:py-12"
           style={{
-            borderColor: COLORS.border,
-            background: COLORS.white,
-            boxShadow: "0 8px 22px rgba(31,36,41,0.045)",
+            borderColor: "rgba(174,123,67,0.32)",
+            background:
+              "linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 68%, #FBF8F4 100%)",
+            boxShadow: "0 20px 70px rgba(31,36,41,0.08)",
           }}
         >
-          <img
-            src={frameStructure}
-            alt=""
-            className="pointer-events-none absolute left-1/2 top-[48%] z-0 hidden h-[82%] w-[54%] -translate-x-[34%] -translate-y-1/2 object-contain opacity-90 lg:block"
-            loading="lazy"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute left-[33%] top-[46%] z-0 hidden h-px w-[20%] lg:block"
-            style={{ background: "rgba(142,91,47,0.22)" }}
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute left-[64%] top-[22%] z-0 hidden h-px w-[20%] lg:block"
-            style={{ background: "rgba(142,91,47,0.22)" }}
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute left-[67%] top-[61%] z-0 hidden h-px w-[18%] lg:block"
-            style={{ background: "rgba(142,91,47,0.22)" }}
-            aria-hidden="true"
-          />
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(350px,0.46fr)_minmax(300px,0.28fr)] lg:justify-between lg:gap-24">
-            <div className="max-w-[590px]">
+          <div className="grid gap-8 lg:grid-cols-[minmax(420px,0.85fr)_minmax(620px,1.15fr)] lg:items-start xl:gap-12">
+            <div className="relative z-10">
               <h2
-                className="text-[32px] font-black leading-tight tracking-[-0.01em] md:text-[44px] lg:text-[46px]"
+                className="max-w-[620px] text-[42px] font-black leading-[1.02] tracking-[-0.01em] md:text-[64px] xl:text-[72px]"
                 style={{ color: "#071017" }}
               >
                 Каркас - это хребет навеса
               </h2>
               <p
-                className="mt-6 max-w-[560px] text-[17px] font-bold leading-relaxed md:text-[20px]"
-                style={{ color: COLORS.text2 }}
+                className="mt-7 max-w-[650px] text-[18px] font-bold leading-[1.55] md:text-[22px]"
+                style={{ color: COLORS.text }}
               >
-                Надежность определяют опоры, балки, фермы, крепления и качество
-                монтажа. Умный каркас принимает нагрузки от снега и ветра и
-                обеспечивает долговечность конструкции.
+                Кровлю видно сразу, но надежность навеса определяют опоры,
+                балки, фермы, крепления и качество монтажа. Хороший навес
+                начинается не с листа кровли. Он начинается с хребта -
+                правильного каркаса.
               </p>
-
-              <div className="mt-10 grid gap-8">
-                {leftNotes.map(({ icon: Icon, title, text }) => (
-                  <div
-                    key={title}
-                    className="relative grid grid-cols-[58px_1fr] items-center gap-5"
-                  >
-                    <div
-                      className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-white"
-                      style={{
-                        border: `1px solid ${COLORS.border}`,
-                        color: COLORS.text2,
-                      }}
-                    >
-                      <Icon size={26} strokeWidth={1.55} />
-                    </div>
-                    <div>
-                      <h3
-                        className="text-[17px] font-extrabold"
-                        style={{ color: "#8E5B2F" }}
-                      >
-                        {title}
-                      </h3>
-                      <p
-                        className="mt-2 text-[16px] font-bold leading-relaxed"
-                        style={{ color: COLORS.text2 }}
-                      >
-                        {text}
-                      </p>
-                    </div>
-                    <div
-                      className="absolute left-[315px] top-1/2 hidden h-px w-[220px] lg:block xl:w-[300px]"
-                      style={{ background: "rgba(142,91,47,0.2)" }}
-                      aria-hidden="true"
-                    />
-                    <div
-                      className="absolute left-[530px] top-1/2 hidden h-2.5 w-2.5 -translate-y-1/2 rounded-full lg:block xl:left-[610px]"
-                      style={{ background: "#8E5B2F" }}
-                      aria-hidden="true"
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div className="relative min-h-[260px] lg:hidden">
+            <div className="relative min-h-[260px] lg:min-h-[360px]">
+              <div className="absolute inset-0 rounded-full bg-[#AE7B43]/[0.08] blur-2xl" />
               <img
-                src={frameStructure}
-                alt="Схема металлического каркаса навеса"
-                className="absolute inset-0 h-full w-full object-contain opacity-90"
+                src={framePlaceholder}
+                alt="Заглушка схемы металлического каркаса навеса"
+                className="relative z-10 h-auto w-full object-contain"
+                width={880}
+                height={436}
                 loading="lazy"
+                decoding="async"
               />
             </div>
+          </div>
 
-            <div className="grid content-center gap-14 lg:ml-auto lg:max-w-[390px] lg:pt-14">
-              {rightNotes.map(({ icon: Icon, title, text }) => (
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {topItems.map(({ icon: Icon, title }) => (
+              <div
+                key={title}
+                className="grid min-h-[112px] grid-cols-[82px_1fr] items-center gap-5 rounded-[18px] border bg-white px-5 py-5 sm:grid-cols-[96px_1fr] sm:px-6"
+                style={{
+                  borderColor: "rgba(174,123,67,0.26)",
+                  boxShadow: "0 12px 34px rgba(31,36,41,0.045)",
+                }}
+              >
                 <div
-                  key={title}
-                  className="relative grid grid-cols-[58px_1fr] gap-5"
+                  className="flex h-16 w-20 items-center justify-center rounded-[14px] sm:w-24"
+                  style={{ color: "#B56F31", background: "#FBF8F4" }}
+                  aria-hidden="true"
                 >
-                  <div
-                    className="mt-1 flex h-14 w-14 items-center justify-center rounded-full bg-white"
-                    style={{
-                      color: "#8E5B2F",
-                      border: `1px solid ${COLORS.border}`,
-                    }}
-                  >
-                    <Icon size={26} strokeWidth={1.6} />
-                  </div>
-                  <div>
-                    <h3
-                      className="text-[22px] font-extrabold"
-                      style={{ color: "#8E5B2F" }}
-                    >
-                      {title}
-                    </h3>
-                    <p
-                      className="mt-4 max-w-[320px] text-[19px] font-bold leading-relaxed"
-                      style={{ color: COLORS.text2 }}
-                    >
-                      {text}
-                    </p>
-                  </div>
+                  <Icon size={38} strokeWidth={1.8} />
                 </div>
-              ))}
-            </div>
+                <h3 className="text-[22px] font-black leading-tight text-[#071017] md:text-[25px]">
+                  {title}
+                </h3>
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="mt-7 grid gap-5 border-t pt-6 lg:grid-cols-3"
+            style={{ borderColor: "rgba(174,123,67,0.2)" }}
+          >
+            {bottomItems.map(({ icon: Icon, title, text }) => (
+              <div
+                key={title}
+                className="grid grid-cols-[72px_1fr] items-center gap-5 lg:border-r lg:pr-8 last:lg:border-r-0"
+                style={{ borderColor: "rgba(174,123,67,0.22)" }}
+              >
+                <div
+                  className="flex h-16 w-16 items-center justify-center rounded-[14px]"
+                  style={{ color: "#B56F31", background: "#FBF8F4" }}
+                  aria-hidden="true"
+                >
+                  <Icon size={32} strokeWidth={1.9} />
+                </div>
+                <div>
+                  <h3 className="text-[20px] font-black text-[#071017] md:text-[23px]">
+                    {title}
+                  </h3>
+                  <p
+                    className="mt-1 text-[15px] font-bold leading-relaxed md:text-[16px]"
+                    style={{ color: COLORS.text2 }}
+                  >
+                    {text}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -13,9 +13,9 @@ import canopy4 from "../assets/canopy-4.jpg";
 import canopyAttached from "../assets/canopy-attached.jpg";
 import canopyTerrace from "../assets/canopy-terrace.jpg";
 import canopyEntry from "../assets/canopy-entry.jpg";
-import materialTile from "../assets/material-tile.jpg";
-import materialProfsheet from "../assets/material-profsheet.jpg";
-import materialPolycarbonate from "../assets/material-polycarbonate.jpg";
+import materialTile from "../assets/material-tile.png";
+import materialProfsheet from "../assets/material-profsheet.png";
+import materialPolycarbonate from "../assets/material-polycarbonate.png";
 import heroSnowWindIcon from "../assets/hero-snow-wind.svg";
 import heroRoofMaterialsIcon from "../assets/hero-roof-materials.svg";
 import heroProductionIcon from "../assets/hero-production.svg";
@@ -153,7 +153,7 @@ export const why: ReliabilityItem[] = [
   {
     icon: reliabilityRoofIcon,
     iconClassName: "h-[145px] w-[230px]",
-    title: "Кровля под задачу",
+    title: "Кровля под\nзадачу",
     text: "Подбираем материал по назначению, углу наклона и визуальному решению.",
   },
   {

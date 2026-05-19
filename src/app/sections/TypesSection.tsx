@@ -8,7 +8,6 @@ type Props = {
 
 export function TypesSection({ openModal }: Props) {
   const [selectedCanopy, setSelectedCanopy] = useState(1);
-  const [selectedMaterial, setSelectedMaterial] = useState(0);
   const selectedCanopyItem = canopyTypes[selectedCanopy];
 
   return (
@@ -70,6 +69,7 @@ export function TypesSection({ openModal }: Props) {
                     alt={item.title}
                     className="h-[170px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] md:h-[188px] xl:h-[176px] 2xl:h-[198px]"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <p
@@ -103,6 +103,7 @@ export function TypesSection({ openModal }: Props) {
               alt={selectedCanopyItem.title}
               className="h-[280px] w-full object-cover md:h-full md:min-h-[380px]"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="flex flex-col px-1 pb-1 pt-6 md:px-8 md:py-5">
@@ -152,81 +153,47 @@ export function TypesSection({ openModal }: Props) {
           </div>
         </article>
 
-        <div className="mt-12 grid gap-9 lg:grid-cols-3">
-          {materials.map((item, index) => {
-            const active = selectedMaterial === index;
-
-            return (
-              <article
-                key={item.title}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedMaterial(index)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    setSelectedMaterial(index);
-                  }
-                }}
-                className="grid min-h-[430px] cursor-pointer overflow-hidden rounded-[18px] border p-5 outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#AE7B43]/40 md:grid-rows-[205px_1fr] 2xl:min-h-[455px] 2xl:grid-rows-[225px_1fr]"
-                style={{
-                  borderColor: active ? "#AE7B43" : COLORS.border,
-                  background: COLORS.white,
-                  boxShadow: active
-                    ? "0 16px 38px rgba(31,36,41,0.1)"
-                    : "0 8px 22px rgba(31,36,41,0.045)",
-                }}
-              >
-                <div className="overflow-hidden rounded-[12px] bg-white">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="h-full w-full object-contain"
-                    loading="lazy"
-                  />
+        <div className="mt-12 grid gap-7 lg:grid-cols-3">
+          {materials.map((item) => (
+            <article
+              key={item.title}
+              className="overflow-hidden rounded-[18px] border bg-white transition-transform duration-200 hover:-translate-y-0.5"
+              style={{
+                borderColor: COLORS.border,
+                boxShadow: "0 8px 22px rgba(31,36,41,0.045)",
+              }}
+            >
+              <div className="h-[205px] overflow-hidden bg-white md:h-[220px] xl:h-[235px] 2xl:h-[255px]">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="h-full w-full scale-[1.55] object-contain object-center"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="px-10 pb-9 pt-6 md:px-11 md:pb-10 md:pt-7">
+                <h3
+                  className="text-[30px] font-extrabold leading-tight tracking-[-0.01em] md:text-[34px]"
+                  style={{ color: "#071017" }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className="mt-4 max-w-[520px] text-[17px] leading-relaxed md:text-[18px]"
+                  style={{ color: COLORS.text2 }}
+                >
+                  {item.text}
+                </p>
+                <div
+                  className="mt-7 text-[21px] font-extrabold md:text-[22px]"
+                  style={{ color: "#8E5B2F" }}
+                >
+                  Ориентир: {item.price}
                 </div>
-                <div className="px-5 pb-3 pt-8">
-                  <h3
-                    className="text-[34px] font-extrabold leading-tight tracking-[-0.01em]"
-                    style={{ color: "#071017" }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className="mt-4 max-w-[500px] text-[18px] leading-relaxed"
-                    style={{ color: COLORS.text2 }}
-                  >
-                    {item.text}
-                  </p>
-                  <div
-                    className="mt-7 text-[22px] font-extrabold"
-                    style={{ color: "#8E5B2F" }}
-                  >
-                    Ориентир: {item.price}
-                  </div>
-                  <div
-                    className="grid overflow-hidden transition-[grid-template-rows] duration-300"
-                    style={{
-                      gridTemplateRows: active ? "1fr" : "0fr",
-                    }}
-                  >
-                    <div className="min-h-0">
-                      <div
-                        className="mt-5 rounded-[14px] px-4 py-3 text-[14px] font-bold leading-relaxed"
-                        style={{
-                          background: "#F7F5F1",
-                          border: `1px solid ${COLORS.border}`,
-                        }}
-                      >
-                        Подходит, если важны баланс цены, внешнего вида и
-                        условий эксплуатации.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
