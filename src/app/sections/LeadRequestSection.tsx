@@ -91,7 +91,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
             style={{ color: COLORS.text2 }}
           >
             Напишите, какой навес нужен: для автомобиля, террасы, входа или
-            двора. Можно добавить размеры или фото места установки в
+            двора. Можно добавить размеры, материал или адрес объекта в
             комментарии - так расчет будет точнее.
           </p>
         </div>
@@ -281,7 +281,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
               <textarea
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}
-                placeholder="Комментарий: размер, материал, адрес, фото места"
+                placeholder="Комментарий: размер, материал, адрес"
                 rows={4}
                 className="w-full resize-none rounded-[14px] px-4 py-3 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                 style={{

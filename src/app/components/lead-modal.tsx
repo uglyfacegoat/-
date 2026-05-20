@@ -214,7 +214,7 @@ export function LeadModal({
                 <textarea
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="Комментарий (размеры, адрес, фото места)"
+                  placeholder="Комментарий (размеры, материал, адрес)"
                   rows={3}
                   className="w-full px-4 py-3 rounded-[14px] outline-none resize-none transition-colors"
                   style={{

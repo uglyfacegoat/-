@@ -164,6 +164,12 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
   h1 {
     font-size: var(--text-2xl);
     font-weight: var(--font-weight-medium);

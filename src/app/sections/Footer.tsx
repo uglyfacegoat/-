@@ -7,12 +7,20 @@ export function Footer() {
       style={{ background: COLORS.graphite, color: "rgba(247,245,241,0.72)" }}
     >
       <div className="mx-auto grid max-w-[1180px] gap-6 px-5 py-7 text-[13px] md:grid-cols-[1fr_auto_auto] md:px-8">
-        <div>
-          <div className="font-extrabold" style={{ color: COLORS.white }}>
-            Хребет Навеса
-          </div>
-          <div className="mt-1">
-            Навесы под ключ в Москве и Московской области.
+        <div className="flex items-center gap-3">
+          <img
+            src="/ico-white-text.svg"
+            alt=""
+            aria-hidden="true"
+            className="h-20 w-auto shrink-0"
+          />
+          <div>
+            <div className="font-extrabold" style={{ color: COLORS.white }}>
+              Хребет Навеса
+            </div>
+            <div className="mt-1">
+              Навесы под ключ в Москве и Московской области.
+            </div>
           </div>
         </div>
         <a
