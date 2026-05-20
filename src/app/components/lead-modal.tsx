@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { X, Check } from "lucide-react";
+import maxIcon from "../../assets/max.svg";
+import telegramIcon from "../../assets/tg.svg";
+import whatsappIcon from "../../assets/whatsapp.svg";
 import { trackGoal } from "../utils/analytics";
 import { formatRuPhone, isValidRuPhone } from "../utils/phone";
 
@@ -20,6 +23,27 @@ const TYPES = [
   "над террасой",
   "над входом",
   "другое",
+];
+
+const MESSENGERS = [
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/74951186060",
+    goal: "whatsapp_click" as const,
+    icon: whatsappIcon,
+  },
+  {
+    label: "Telegram",
+    href: "https://t.me/khrebetnavesa",
+    goal: "telegram_click" as const,
+    icon: telegramIcon,
+  },
+  {
+    label: "Max",
+    href: "https://max.ru/khrebetnavesa",
+    goal: "max_click" as const,
+    icon: maxIcon,
+  },
 ];
 
 export function LeadModal({
@@ -84,13 +108,6 @@ export function LeadModal({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="absolute left-0 right-0 top-0 h-1"
-          style={{
-            background:
-              "linear-gradient(90deg, #AE7B43, rgba(174,123,67,0.12))",
-          }}
-        />
         <button
           onClick={onClose}
           className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-[#F4F0EA]"
@@ -233,6 +250,32 @@ export function LeadModal({
               >
                 Получить расчет
               </button>
+
+              <div className="grid grid-cols-3 gap-2">
+                {MESSENGERS.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={item.label}
+                    data-goal={item.goal}
+                    onClick={() => trackGoal(item.goal)}
+                    className="flex h-11 items-center justify-center rounded-[12px] border transition-colors hover:bg-[#F4F0EA]"
+                    style={{
+                      borderColor: "#D9D4CC",
+                      color: "#2F3438",
+                    }}
+                  >
+                    <img
+                      src={item.icon}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-6 w-6 shrink-0"
+                    />
+                  </a>
+                ))}
+              </div>
 
               <p style={{ color: "#8A9096", fontSize: 12, lineHeight: 1.5 }}>
                 Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности и

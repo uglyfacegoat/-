@@ -3,7 +3,6 @@ import { heroAdvantages } from "../data";
 import { COLORS } from "../theme";
 import { Button, LogoMark } from "../components/ui";
 import heroReference from "../../assets/hero-reference.png";
-import heroReferenceLarge from "../../assets/hero-reference-large.png";
 import { trackGoal } from "../utils/analytics";
 
 type Props = {
@@ -139,7 +138,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               "linear-gradient(100deg, #F7F5F1 0%, #F7F5F1 44%, rgba(247,245,241,0.9) 56%, rgba(220,232,242,0.78) 100%)",
           }}
         />
-        <div className="relative mx-auto grid min-h-[720px] max-w-none gap-4 px-5 pb-0 pt-10 md:px-8 lg:grid-cols-[620px_minmax(0,1fr)] lg:items-center lg:px-[clamp(80px,5vw,150px)] lg:pt-12 xl:min-h-[820px] xl:grid-cols-[700px_minmax(0,1fr)] 2xl:min-h-[calc(100vh-40px)] 2xl:grid-cols-[760px_minmax(0,1fr)] min-[2200px]:grid-cols-[840px_minmax(0,1fr)]">
+        <div className="relative mx-auto grid max-w-none gap-4 px-5 pb-14 pt-10 md:px-8 md:pb-16 lg:min-h-[720px] lg:grid-cols-[620px_minmax(0,1fr)] lg:items-center lg:px-[clamp(80px,5vw,150px)] lg:pb-0 lg:pt-12 xl:min-h-[820px] xl:grid-cols-[700px_minmax(0,1fr)] 2xl:min-h-[calc(100vh-40px)] 2xl:grid-cols-[760px_minmax(0,1fr)] min-[2200px]:grid-cols-[840px_minmax(0,1fr)]">
           <div className="relative z-10 max-w-[760px]">
             <h1
               className="text-[38px] font-black leading-[1.08] tracking-[-0.02em] sm:text-[48px] lg:text-[58px] xl:text-[66px] min-[2200px]:text-[74px]"
@@ -193,17 +192,19 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
               </span>
             </div>
 
-            <div className="mt-10 grid max-w-[820px] gap-0 sm:grid-cols-2 lg:grid-cols-4">
-              {heroAdvantages.map(({ icon, iconClassName, text }) => (
+            <div className="mt-10 grid max-w-[820px] gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+              {heroAdvantages.map(({ icon, iconClassName, text }, index) => (
                 <div
                   key={text}
-                  className="border-l px-4 first:border-l-0 lg:px-5"
+                  className="grid grid-cols-[64px_1fr] items-center gap-4 rounded-[16px] border bg-white/70 px-4 py-4 sm:grid-cols-[72px_1fr] lg:block lg:rounded-none lg:border-y-0 lg:border-r-0 lg:bg-transparent lg:py-0 lg:first:border-l-0 lg:px-5"
                   style={{
                     borderColor: COLORS.border,
                   }}
                 >
                   <span
-                    className="flex h-[58px] items-start"
+                    className={`flex h-[58px] items-center justify-center lg:h-[72px] lg:justify-start ${
+                      index === 0 ? "translate-y-1.5" : ""
+                    }`}
                     aria-hidden="true"
                   >
                     <span
@@ -222,7 +223,9 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
                     />
                   </span>
                   <div
-                    className="mt-3 whitespace-pre-line text-[13px] font-bold leading-snug"
+                    className={`whitespace-pre-line text-[13px] font-bold leading-snug lg:mt-3 ${
+                      index === 0 ? "translate-y-1.5" : ""
+                    }`}
                     style={{ color: COLORS.text }}
                   >
                     {text}
@@ -232,15 +235,13 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             </div>
           </div>
 
-          <div className="relative min-h-[390px] sm:min-h-[470px] lg:min-h-[660px] xl:min-h-[760px] 2xl:min-h-[calc(100vh-100px)]">
-            <picture className="absolute bottom-[-34px] right-[-22%] block h-auto w-[154%] max-w-none sm:bottom-[-42px] sm:right-[-14%] sm:w-[140%] lg:bottom-[-58px] lg:right-[-22%] lg:w-[168%] xl:bottom-[-70px] xl:right-[-22%] xl:w-[162%] 2xl:bottom-[-82px] 2xl:right-[-34%] 2xl:w-[174%] min-[2200px]:bottom-[-96px] min-[2200px]:right-[-28%] min-[2200px]:w-[162%]">
-              <source media="(min-width: 1536px)" srcSet={heroReferenceLarge} />
+          <div className="relative hidden min-h-[390px] sm:min-h-[470px] lg:block lg:min-h-[660px] xl:min-h-[760px] 2xl:min-h-[calc(100vh-100px)]">
+            <picture className="absolute bottom-[-34px] right-[-22%] block h-auto w-[154%] max-w-none sm:bottom-[-42px] sm:right-[-14%] sm:w-[140%] lg:bottom-[-30px] lg:right-[-8%] lg:w-[112%] xl:bottom-[-38px] xl:right-[-8%] xl:w-[108%] 2xl:bottom-[-44px] 2xl:right-[-12%] 2xl:w-[116%] min-[2200px]:bottom-[-52px] min-[2200px]:right-[-10%] min-[2200px]:w-[108%]">
               <img
                 src={heroReference}
                 alt="Навес для автомобиля у современного дома"
                 className="h-auto w-full max-w-none object-contain object-bottom drop-shadow-[0_24px_32px_rgba(31,36,41,0.18)]"
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
               />
             </picture>

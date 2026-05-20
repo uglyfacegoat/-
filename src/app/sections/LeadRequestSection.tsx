@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Check, Plus, Send, ShieldCheck } from "lucide-react";
+import maxIcon from "../../assets/max.svg";
+import telegramIcon from "../../assets/tg.svg";
+import whatsappIcon from "../../assets/whatsapp.svg";
 import { faqs, TYPES } from "../data";
 import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
@@ -25,16 +28,19 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
       label: "WhatsApp",
       href: "https://wa.me/74951186060",
       goal: "whatsapp_click" as const,
+      icon: whatsappIcon,
     },
     {
       label: "Telegram",
       href: "https://t.me/khrebetnavesa",
       goal: "telegram_click" as const,
+      icon: telegramIcon,
     },
     {
       label: "Max",
       href: "https://max.ru/khrebetnavesa",
       goal: "max_click" as const,
+      icon: maxIcon,
     },
   ];
 
@@ -198,15 +204,21 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
+                    aria-label={item.label}
                     data-goal={item.goal}
                     onClick={() => trackGoal(item.goal)}
-                    className="rounded-[12px] border px-3 py-2 text-[12px] font-extrabold uppercase tracking-[0.04em] transition-colors hover:bg-white/10"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-[12px] border transition-colors hover:bg-white/10"
                     style={{
                       borderColor: "rgba(198,154,102,0.42)",
                       color: "#F7F5F1",
                     }}
                   >
-                    {item.label}
+                    <img
+                      src={item.icon}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-6 w-6 shrink-0"
+                    />
                   </a>
                 ))}
               </div>

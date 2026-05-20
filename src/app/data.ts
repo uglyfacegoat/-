@@ -57,7 +57,7 @@ export const TYPES = [
 export const heroAdvantages: HeroAdvantage[] = [
   {
     icon: heroSnowWindIcon,
-    iconClassName: "h-[46px] w-[64px]",
+    iconClassName: "h-[52px] w-[72px]",
     text: "Каркас под снег\nи ветер Москвы и МО",
   },
   {
