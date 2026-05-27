@@ -4,10 +4,10 @@ import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
 
 type Props = {
-  openModal: (opts?: { type?: string; title?: string }) => void;
+  onContactClick: () => void;
 };
 
-export function TypesSection({ openModal }: Props) {
+export function TypesSection({ onContactClick }: Props) {
   const [selectedCanopy, setSelectedCanopy] = useState(1);
   const selectedCanopyItem = canopyTypes[selectedCanopy];
 
@@ -138,10 +138,7 @@ export function TypesSection({ openModal }: Props) {
                 type="button"
                 onClick={() => {
                   trackGoal("cta_click");
-                  openModal({
-                    type: selectedCanopyItem.title.toLowerCase(),
-                    title: selectedCanopyItem.title,
-                  });
+                  onContactClick();
                 }}
                 className="min-h-[52px] rounded-[14px] px-9 py-4 text-[13px] font-extrabold uppercase tracking-[0.02em]"
                 style={{
@@ -155,11 +152,13 @@ export function TypesSection({ openModal }: Props) {
           </div>
         </article>
 
-        <div className="mt-12 grid gap-7 lg:grid-cols-3">
-          {materials.map((item) => (
+        <div className="mt-12 grid gap-7 md:grid-cols-2 xl:grid-cols-6">
+          {materials.map((item, index) => (
             <article
               key={item.title}
-              className="flex flex-col overflow-hidden rounded-[18px] border bg-white transition-transform duration-200 hover:-translate-y-0.5"
+              className={`flex flex-col overflow-hidden rounded-[18px] border bg-white transition-transform duration-200 hover:-translate-y-0.5 xl:col-span-2 ${
+                index === 3 ? "xl:col-start-2" : ""
+              }`}
               style={{
                 borderColor: COLORS.border,
                 boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
@@ -169,7 +168,7 @@ export function TypesSection({ openModal }: Props) {
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-full w-full scale-[1.55] object-contain object-center"
+                  className={`h-full w-full object-center ${item.imgClassName ?? "object-contain"}`}
                   loading="lazy"
                   decoding="async"
                 />

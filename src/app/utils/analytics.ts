@@ -1,6 +1,5 @@
 type GoalName =
   | "cta_click"
-  | "modal_open"
   | "lead_submit"
   | "phone_click"
   | "whatsapp_click"

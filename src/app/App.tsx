@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { LeadModal } from "./components/lead-modal";
 import { CasesSection } from "./sections/CasesSection";
 import { FinalLeadSection } from "./sections/FinalLeadSection";
 import { Footer } from "./sections/Footer";
@@ -9,23 +8,17 @@ import { ProcessSection } from "./sections/ProcessSection";
 import { ReliabilitySection } from "./sections/ReliabilitySection";
 import { TypesSection } from "./sections/TypesSection";
 import { COLORS } from "./theme";
-import { trackGoal } from "./utils/analytics";
+import { FloatingContacts } from "./components/floating-contacts";
 
 export default function App() {
-  const [modal, setModal] = useState<{
-    open: boolean;
-    type?: string;
-    title?: string;
-    subtitle?: string;
-  }>({ open: false });
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const openModal = (
-    opts: { type?: string; title?: string; subtitle?: string } = {},
-  ) => {
-    trackGoal("modal_open");
-    setModal({ open: true, ...opts });
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
@@ -33,23 +26,16 @@ export default function App() {
       <HeroSection
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
-        openModal={() => openModal()}
+        onContactClick={scrollToContact}
       />
-      <ReliabilitySection openModal={openModal} />
-      <TypesSection openModal={openModal} />
-      <CasesSection openModal={openModal} />
+      <ReliabilitySection onContactClick={scrollToContact} />
+      <TypesSection onContactClick={scrollToContact} />
+      <CasesSection onContactClick={scrollToContact} />
       <ProcessSection />
       <FinalLeadSection />
       <LeadRequestSection faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
       <Footer />
-
-      <LeadModal
-        open={modal.open}
-        onClose={() => setModal({ open: false })}
-        title={modal.title}
-        subtitle={modal.subtitle}
-        defaultType={modal.type}
-      />
+      <FloatingContacts />
     </div>
   );
 }

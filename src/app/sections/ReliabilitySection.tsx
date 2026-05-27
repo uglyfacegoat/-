@@ -3,10 +3,10 @@ import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
 
 type Props = {
-  openModal: (opts?: { title?: string; subtitle?: string }) => void;
+  onContactClick: () => void;
 };
 
-export function ReliabilitySection({ openModal }: Props) {
+export function ReliabilitySection({ onContactClick }: Props) {
   return (
     <section
       id="benefits"
@@ -34,11 +34,7 @@ export function ReliabilitySection({ openModal }: Props) {
             type="button"
             onClick={() => {
               trackGoal("cta_click");
-              openModal({
-                title: "Получить расчет без слабой конструкции",
-                subtitle:
-                  "Оставьте телефон и коротко опишите задачу. Мы посчитаем навес без экономии на каркасе, креплениях и монтаже.",
-              });
+              onContactClick();
             }}
             className="mt-7 min-h-[52px] rounded-[14px] px-8 text-[13px] font-extrabold uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
             style={{
@@ -52,39 +48,63 @@ export function ReliabilitySection({ openModal }: Props) {
         </div>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {why.map(({ icon, iconClassName, title, text }) => (
-            <article
-              key={title}
-              className="grid min-h-[390px] grid-rows-[170px_102px_1fr] items-start justify-items-center rounded-[18px] border px-7 pb-9 pt-9 text-center"
-              style={{
-                borderColor: COLORS.border,
-                background: COLORS.white,
-                boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
-              }}
-            >
-              <span className="relative flex h-[170px] w-full items-center justify-center overflow-visible">
-                <img
-                  src={icon}
-                  alt=""
-                  className={`absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain ${iconClassName}`}
-                  loading="lazy"
-                  aria-hidden="true"
-                />
-              </span>
-              <h3
-                className="flex max-w-[270px] translate-y-10 items-end whitespace-pre-line text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
-                style={{ color: "#071017" }}
+          {why.map(
+            ({
+              icon,
+              iconClassName = "",
+              image,
+              imageClassName = "",
+              title,
+              text,
+            }) => (
+              <article
+                key={title}
+                className="flex min-h-[430px] flex-col items-center rounded-[18px] border px-7 pb-9 pt-7 text-center"
+                style={{
+                  borderColor: COLORS.border,
+                  background: COLORS.white,
+                  boxShadow: "0 8px 20px rgba(174,123,67,0.08)",
+                }}
               >
-                {title}
-              </h3>
-              <p
-                className="mt-0 max-w-[310px] text-[16px] leading-[1.55]"
-                style={{ color: COLORS.text2 }}
-              >
-                {text}
-              </p>
-            </article>
-          ))}
+                <span
+                  className="relative flex h-[190px] w-full items-center justify-center overflow-hidden rounded-[14px]"
+                  style={{ background: "#FAFAF8" }}
+                >
+                  {image ? (
+                    <img
+                      src={image}
+                      alt={title}
+                      className={imageClassName}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    icon && (
+                      <img
+                        src={icon}
+                        alt=""
+                        className={`max-w-none object-contain ${iconClassName}`}
+                        loading="lazy"
+                        aria-hidden="true"
+                      />
+                    )
+                  )}
+                </span>
+                <h3
+                  className="mt-7 flex min-h-[62px] max-w-[270px] items-end whitespace-pre-line text-[27px] font-extrabold leading-[1.1] tracking-[-0.01em]"
+                  style={{ color: "#071017" }}
+                >
+                  {title}
+                </h3>
+                <p
+                  className="mt-5 max-w-[310px] text-[16px] leading-[1.55]"
+                  style={{ color: COLORS.text2 }}
+                >
+                  {text}
+                </p>
+              </article>
+            ),
+          )}
         </div>
       </div>
     </section>

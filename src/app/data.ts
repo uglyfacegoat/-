@@ -16,14 +16,16 @@ import canopyEntry from "../assets/canopy-entry.jpg";
 import materialTile from "../assets/material-tile.png";
 import materialProfsheet from "../assets/material-profsheet.png";
 import materialPolycarbonate from "../assets/material-polycarbonate.png";
+import materialMonolithicPolycarbonate from "../assets/material-monolithic-polycarbonate-photo.jpg";
+import materialSoftRoof from "../assets/material-soft-roof-photo.jpg";
 import heroSnowWindIcon from "../assets/hero-snow-wind.svg";
 import heroRoofMaterialsIcon from "../assets/hero-roof-materials.svg";
 import heroProductionIcon from "../assets/hero-production.svg";
 import heroMeasureInstallIcon from "../assets/hero-measure-install.svg";
-import reliabilityMetalIcon from "../assets/reliability-metal.svg";
-import reliabilityFastenersIcon from "../assets/reliability-fasteners.svg";
-import reliabilityRoofIcon from "../assets/reliability-roof.svg";
-import reliabilityInstallIcon from "../assets/reliability-install.svg";
+import reliabilityFastenersPhoto from "../assets/reliability-fasteners-photo.jpg";
+import reliabilityInstallPhoto from "../assets/reliability-install-photo.png";
+import reliabilityMetalPhoto from "../assets/reliability-metal-photo.png";
+import reliabilityRoofPhoto from "../assets/reliability-roof-photo.jpg";
 
 type IconItem = {
   icon: LucideIcon;
@@ -38,8 +40,11 @@ type HeroAdvantage = {
 };
 
 type ReliabilityItem = {
-  icon: string;
-  iconClassName: string;
+  icon?: string;
+  iconClassName?: string;
+  image?: string;
+  imageClassName?: string;
+  bullets?: string[];
   title: string;
   text: string;
 };
@@ -83,18 +88,35 @@ export const materials = [
     text: "Практичный и доступный материал. Подходит для парковок, хозяйственных навесов и участков.",
     price: "от 6 000 руб./м²",
     img: materialProfsheet,
+    imgClassName: "scale-[1.55] object-contain",
   },
   {
     title: "Сотовый поликарбонат",
     text: "Легкий светопропускающий материал для террас, входных групп, проходных зон и дворовых решений.",
     price: "6 500 - 9 000 руб./м²",
     img: materialPolycarbonate,
+    imgClassName: "scale-[1.55] object-contain",
+  },
+  {
+    title: "Монолитный поликарбонат",
+    text: "Прочный прозрачный материал для навесов, где важны свет, аккуратный внешний вид и повышенная ударостойкость.",
+    price: "по расчету",
+    img: materialMonolithicPolycarbonate,
+    imgClassName: "scale-[1.22] object-contain",
   },
   {
     title: "Металлочерепица",
     text: "Капитальный внешний вид рядом с домом, особенно если нужно связать навес с кровлей дома.",
     price: "7 500 - 10 000 руб./м²",
     img: materialTile,
+    imgClassName: "scale-[1.55] object-contain",
+  },
+  {
+    title: "Мягкая кровля",
+    text: "Гибкая битумная кровля для навесов рядом с домом, когда нужно визуально поддержать основную крышу.",
+    price: "по расчету",
+    img: materialSoftRoof,
+    imgClassName: "scale-[1.18] object-contain",
   },
 ];
 
@@ -139,26 +161,27 @@ export const canopyTypes = [
 
 export const why: ReliabilityItem[] = [
   {
-    icon: reliabilityMetalIcon,
-    iconClassName: "h-[145px] w-[190px]",
+    image: reliabilityMetalPhoto,
+    imageClassName: "h-full w-full scale-[1.18] object-contain p-0",
     title: "Нормальный металл",
     text: "Используем сталь нужной толщины с запасом прочности под нагрузки.",
   },
   {
-    icon: reliabilityFastenersIcon,
-    iconClassName: "h-[145px] w-[230px]",
+    image: reliabilityFastenersPhoto,
+    imageClassName: "h-full w-full object-cover",
+    bullets: ["Винтовые сваи", "Бетонировка", "Химические анкера"],
     title: "Правильные опоры и крепления",
     text: "Надежные узлы, анкеры и закладные - устойчивость в ветре и при снеговой нагрузке.",
   },
   {
-    icon: reliabilityRoofIcon,
-    iconClassName: "h-[145px] w-[230px]",
+    image: reliabilityRoofPhoto,
+    imageClassName: "h-full w-full object-cover",
     title: "Кровля под\nзадачу",
     text: "Подбираем материал по назначению, углу наклона и визуальному решению.",
   },
   {
-    icon: reliabilityInstallIcon,
-    iconClassName: "h-[150px] w-[165px]",
+    image: reliabilityInstallPhoto,
+    imageClassName: "h-full w-full object-cover",
     title: "Аккуратный монтаж",
     text: "Соблюдаем технологию монтажа и проверяем каждый узел на объекте.",
   },

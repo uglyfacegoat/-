@@ -8,10 +8,10 @@ const CASE_ROTATION_MS = 3200;
 const DESKTOP_OFFSETS = [-2, -1, 0, 1, 2];
 
 type Props = {
-  openModal: (opts?: { title?: string; subtitle?: string }) => void;
+  onContactClick: () => void;
 };
 
-export function CasesSection({ openModal }: Props) {
+export function CasesSection({ onContactClick }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -236,11 +236,7 @@ export function CasesSection({ openModal }: Props) {
             type="button"
             onClick={() => {
               trackGoal("cta_click");
-              openModal({
-                title: "Рассчитать мой навес",
-                subtitle:
-                  "Оставьте телефон и пару деталей: тип навеса, примерный размер или материал. Мы дадим ориентир по стоимости.",
-              });
+              onContactClick();
             }}
             className="min-h-[52px] rounded-[14px] px-9 py-4 text-[13px] font-extrabold uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
             style={{

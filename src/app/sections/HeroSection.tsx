@@ -8,10 +8,10 @@ import { trackGoal } from "../utils/analytics";
 type Props = {
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
-  openModal: () => void;
+  onContactClick: () => void;
 };
 
-export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
+export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
   return (
     <section style={{ background: COLORS.warmBg }}>
       <header
@@ -62,7 +62,11 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             >
               +7 (495) 118-60-60
             </a>
-            <Button variant="bronze" onClick={openModal} className="h-12 px-6">
+            <Button
+              variant="bronze"
+              onClick={onContactClick}
+              className="h-12 px-6"
+            >
               Рассчитать стоимость
             </Button>
           </div>
@@ -181,7 +185,7 @@ export function HeroSection({ menuOpen, setMenuOpen, openModal }: Props) {
             </div>
 
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Button onClick={openModal} className="h-[52px] px-8">
+              <Button onClick={onContactClick} className="h-[52px] px-8">
                 Рассчитать стоимость
               </Button>
               <span
