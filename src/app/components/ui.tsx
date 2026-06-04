@@ -4,22 +4,23 @@ import { trackGoal } from "../utils/analytics";
 
 export function LogoMark() {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex min-w-0 shrink-0 items-center gap-1.5 sm:gap-3">
       <img
         src="/favicon.svg?v=2"
         alt=""
         aria-hidden="true"
-        className="-ml-3 h-[84px] w-[84px] translate-y-1 shrink-0 md:-ml-5 md:h-[98px] md:w-[98px]"
+        className="-ml-3 h-[96px] w-[96px] translate-y-1 shrink-0 sm:h-[84px] sm:w-[84px] md:-ml-5 md:h-[98px] md:w-[98px]"
       />
-      <div className="leading-tight">
-        <div style={{ color: "#071017", fontWeight: 800 }}>Хребет Навеса</div>
+      <div className="hidden min-w-0 leading-tight sm:block">
         <div
-          style={{
-            color: "rgba(7,16,23,0.58)",
-            fontSize: 11,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-          }}
+          className="max-w-[54px] text-[8px] font-extrabold leading-[1.05] sm:max-w-none sm:text-[16px]"
+          style={{ color: "#071017" }}
+        >
+          Хребет Навеса
+        </div>
+        <div
+          className="mt-0.5 hidden text-[11px] uppercase tracking-[0.08em] sm:block"
+          style={{ color: "rgba(7,16,23,0.58)" }}
         >
           каркас · кровля · монтаж
         </div>

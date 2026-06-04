@@ -1,4 +1,4 @@
-import { Menu, PhoneCall } from "lucide-react";
+import { Menu } from "lucide-react";
 import { heroAdvantages } from "../data";
 import { COLORS } from "../theme";
 import { Button, LogoMark } from "../components/ui";
@@ -22,7 +22,7 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
           boxShadow: "0 8px 24px rgba(31,36,41,0.08)",
         }}
       >
-        <div className="mx-auto flex h-[86px] max-w-none items-center justify-between gap-4 px-5 md:px-8 lg:px-[clamp(80px,5vw,150px)]">
+        <div className="mx-auto flex h-[78px] max-w-none items-center justify-between gap-1.5 px-3 sm:h-[86px] sm:gap-4 sm:px-5 md:px-8 lg:px-[clamp(80px,5vw,150px)]">
           <LogoMark />
 
           <nav
@@ -76,18 +76,19 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
               href="tel:+74951186060"
               data-goal="phone_click"
               onClick={() => trackGoal("phone_click")}
-              className="flex h-11 w-11 items-center justify-center rounded-[12px]"
+              className="flex h-10 items-center justify-center rounded-[14px] px-2.5 text-[12px] font-extrabold whitespace-nowrap min-[390px]:px-3 min-[390px]:text-[13px]"
               style={{
                 background: "rgba(174,123,67,0.12)",
                 border: "1px solid rgba(174,123,67,0.26)",
+                color: "#071017",
               }}
               aria-label="Позвонить"
             >
-              <PhoneCall size={20} color="#8E5B2F" strokeWidth={2.2} />
+              +7 (495) 118-60-60
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex h-11 w-11 items-center justify-center rounded-[12px]"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px]"
               style={{
                 background: "rgba(7,16,23,0.06)",
                 border: "1px solid rgba(7,16,23,0.12)",
@@ -122,13 +123,6 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
             </a>
             <a href="#faq" onClick={() => setMenuOpen(false)}>
               FAQ
-            </a>
-            <a
-              href="tel:+74951186060"
-              data-goal="phone_click"
-              onClick={() => trackGoal("phone_click")}
-            >
-              +7 (495) 118-60-60
             </a>
           </div>
         )}

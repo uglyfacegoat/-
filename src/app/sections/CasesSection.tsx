@@ -1,11 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
-import { Info } from "lucide-react";
-import { cases } from "../data";
+import case1 from "../../assets/cases/case-1.jpg";
+import case2 from "../../assets/cases/case-2.jpg";
+import case3 from "../../assets/cases/case-3.jpg";
+import case4 from "../../assets/cases/case-4.jpg";
+import case5 from "../../assets/cases/case-5.jpg";
+import case6 from "../../assets/cases/case-6.jpg";
 import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
 
 const CASE_ROTATION_MS = 3200;
 const DESKTOP_OFFSETS = [-2, -1, 0, 1, 2];
+const CASES = [
+  { title: "Пример работы 1", img: case1 },
+  { title: "Пример работы 2", img: case2 },
+  { title: "Пример работы 3", img: case3 },
+  { title: "Пример работы 4", img: case4 },
+  { title: "Пример работы 5", img: case5 },
+  { title: "Пример работы 6", img: case6 },
+];
 
 type Props = {
   onContactClick: () => void;
@@ -19,7 +31,7 @@ export function CasesSection({ onContactClick }: Props) {
     if (paused) return;
 
     const id = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % cases.length);
+      setActiveIndex((current) => (current + 1) % CASES.length);
     }, CASE_ROTATION_MS);
 
     return () => window.clearInterval(id);
@@ -28,9 +40,9 @@ export function CasesSection({ onContactClick }: Props) {
   const visibleCases = useMemo(
     () =>
       DESKTOP_OFFSETS.map((offset) => {
-        const index = (activeIndex + offset + cases.length) % cases.length;
+        const index = (activeIndex + offset + CASES.length) % CASES.length;
         return {
-          item: cases[index],
+          item: CASES[index],
           index,
           offset,
         };
@@ -47,15 +59,15 @@ export function CasesSection({ onContactClick }: Props) {
       <div className="mx-auto max-w-[1920px] px-5 py-14 md:px-8 md:py-[72px] lg:px-10 xl:px-12">
         <div className="mx-auto max-w-[920px] text-center">
           <h2
-            className="text-[32px] font-black leading-[1.12] tracking-[-0.01em] md:text-[42px] lg:text-[46px]"
+            className="text-[32px] font-black leading-[1.12] md:text-[42px] lg:text-[46px]"
             style={{ color: "#071017" }}
           >
-            Примеры решений и ориентиры цен
+            Примеры работ
           </h2>
         </div>
 
         <div
-          className="mt-10 hidden min-h-[580px] items-center justify-center gap-4 overflow-hidden px-2 xl:flex"
+          className="mt-10 hidden min-h-[520px] items-center justify-center gap-4 overflow-hidden px-2 xl:flex"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocus={() => setPaused(true)}
@@ -68,12 +80,12 @@ export function CasesSection({ onContactClick }: Props) {
             return (
               <article
                 key={`${item.title}-${index}`}
-                className={`group flex shrink-0 flex-col rounded-[20px] border bg-white p-3 text-center transition-all duration-700 ease-out ${
+                className={`group shrink-0 overflow-hidden rounded-[20px] border bg-white p-2 transition-all duration-700 ease-out ${
                   active
-                    ? "z-20 min-h-[560px] w-[390px] scale-100 opacity-100"
+                    ? "z-20 h-[500px] w-[560px] scale-100 opacity-100"
                     : near
-                      ? "z-10 min-h-[470px] w-[270px] scale-[0.94] opacity-85"
-                      : "min-h-[420px] w-[230px] scale-[0.88] opacity-55"
+                      ? "z-10 h-[420px] w-[360px] scale-[0.94] opacity-85"
+                      : "h-[360px] w-[300px] scale-[0.88] opacity-55"
                 }`}
                 style={{
                   borderColor: active ? "#AE7B43" : COLORS.border,
@@ -85,54 +97,20 @@ export function CasesSection({ onContactClick }: Props) {
                 onFocus={() => setActiveIndex(index)}
                 onClick={() => setActiveIndex(index)}
               >
-                <div className="overflow-hidden rounded-[14px]">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className={`w-full object-cover transition-transform duration-700 group-hover:scale-[1.025] ${
-                      active ? "h-[310px]" : near ? "h-[235px]" : "h-[205px]"
-                    }`}
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
-                  <h3
-                    className={`mx-auto whitespace-pre-line font-extrabold leading-tight transition-all duration-700 ${
-                      active
-                        ? "max-w-[320px] text-[27px]"
-                        : "max-w-[230px] text-[18px]"
-                    }`}
-                    style={{ color: "#071017" }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`mx-auto mt-4 leading-snug transition-all duration-700 ${
-                      active
-                        ? "max-w-[310px] text-[18px]"
-                        : "max-w-[230px] text-[15px]"
-                    }`}
-                    style={{ color: "#071017" }}
-                  >
-                    {item.params}
-                  </p>
-                  <div
-                    className={`mt-auto pt-5 font-extrabold leading-tight transition-all duration-700 ${
-                      active ? "text-[28px]" : "text-[20px]"
-                    }`}
-                    style={{ color: "#071017" }}
-                  >
-                    {item.price}
-                  </div>
-                </div>
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="h-full w-full rounded-[14px] object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                  loading="lazy"
+                  decoding="async"
+                />
               </article>
             );
           })}
         </div>
 
         <div className="mt-5 hidden justify-center gap-2 xl:flex">
-          {cases.map((item, index) => (
+          {CASES.map((item, index) => (
             <button
               key={item.title}
               type="button"
@@ -142,7 +120,7 @@ export function CasesSection({ onContactClick }: Props) {
                 width: activeIndex === index ? 28 : 10,
                 background: activeIndex === index ? "#AE7B43" : COLORS.border,
               }}
-              aria-label={`Показать кейс ${index + 1}`}
+              aria-label={`Показать работу ${index + 1}`}
             />
           ))}
         </div>
@@ -154,50 +132,28 @@ export function CasesSection({ onContactClick }: Props) {
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
         >
-          {[cases[activeIndex]].map((item) => (
+          {[CASES[activeIndex]].map((item) => (
             <article
               key={item.title}
-              className="group flex min-h-[420px] flex-col rounded-[18px] border bg-white p-3 text-center transition-transform duration-300 sm:min-h-[460px]"
+              className="group overflow-hidden rounded-[18px] border bg-white p-2 transition-transform duration-300"
               style={{
                 borderColor: "#AE7B43",
                 boxShadow: "0 12px 28px rgba(174,123,67,0.12)",
               }}
             >
-              <div className="overflow-hidden rounded-[12px]">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:aspect-[16/10]"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
-                <h3
-                  className="mx-auto max-w-[250px] whitespace-pre-line text-[20px] font-extrabold leading-tight"
-                  style={{ color: "#071017" }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="mt-4 text-[17px] leading-snug"
-                  style={{ color: "#071017" }}
-                >
-                  {item.params}
-                </p>
-                <div
-                  className="mt-auto pt-5 text-[23px] font-extrabold leading-tight"
-                  style={{ color: "#071017" }}
-                >
-                  {item.price}
-                </div>
-              </div>
+              <img
+                src={item.img}
+                alt={item.title}
+                className="aspect-[4/3] w-full rounded-[12px] object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:aspect-[16/10]"
+                loading="lazy"
+                decoding="async"
+              />
             </article>
           ))}
         </div>
 
         <div className="mt-5 flex justify-center gap-2 xl:hidden">
-          {cases.map((item, index) => (
+          {CASES.map((item, index) => (
             <button
               key={item.title}
               type="button"
@@ -207,30 +163,11 @@ export function CasesSection({ onContactClick }: Props) {
                 width: activeIndex === index ? 28 : 10,
                 background: activeIndex === index ? "#AE7B43" : COLORS.border,
               }}
-              aria-label={`Показать кейс ${index + 1}`}
+              aria-label={`Показать работу ${index + 1}`}
             />
           ))}
         </div>
 
-        <div className="mx-auto mt-8 flex max-w-[940px] items-start justify-center gap-5">
-          <div
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
-            style={{
-              border: `2px solid ${COLORS.border}`,
-              color: COLORS.text2,
-            }}
-            aria-hidden="true"
-          >
-            <Info size={23} strokeWidth={1.8} />
-          </div>
-          <p
-            className="max-w-[760px] text-[17px] font-bold leading-relaxed"
-            style={{ color: COLORS.text2 }}
-          >
-            Цены указаны как ориентир. Мы не даем красивую минимальную цену,
-            если под ваш размер и нагрузку нужна более крепкая конструкция.
-          </p>
-        </div>
         <div className="mt-7 flex justify-center">
           <button
             type="button"

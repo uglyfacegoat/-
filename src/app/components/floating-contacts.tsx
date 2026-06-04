@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import maxIcon from "../../assets/max.svg";
 import telegramIcon from "../../assets/tg.svg";
 import whatsappIcon from "../../assets/whatsapp.svg";
@@ -25,9 +26,40 @@ const CONTACTS = [
 ];
 
 export function FloatingContacts() {
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true);
+
+      if (scrollTimer.current) {
+        window.clearTimeout(scrollTimer.current);
+      }
+
+      scrollTimer.current = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 450);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+
+      if (scrollTimer.current) {
+        window.clearTimeout(scrollTimer.current);
+      }
+    };
+  }, []);
+
   return (
     <div
-      className="fixed bottom-5 right-5 z-40 flex flex-col gap-2 rounded-[18px] border bg-white/92 p-2 shadow-[0_14px_38px_rgba(31,36,41,0.18)] backdrop-blur sm:bottom-6 sm:right-6"
+      className={`fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col gap-1 rounded-l-[14px] border border-r-0 bg-white/92 p-1.5 shadow-[0_12px_30px_rgba(31,36,41,0.16)] backdrop-blur transition-all duration-300 ease-out ${
+        isScrolling
+          ? "translate-x-full opacity-0"
+          : "translate-x-0 opacity-100"
+      }`}
       style={{ borderColor: "rgba(174,123,67,0.24)" }}
       aria-label="Quick contacts"
     >
@@ -40,14 +72,14 @@ export function FloatingContacts() {
           aria-label={item.label}
           data-goal={item.goal}
           onClick={() => trackGoal(item.goal)}
-          className="flex h-12 w-12 items-center justify-center rounded-[14px] border transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#F4F0EA]"
+          className="flex h-10 w-10 items-center justify-center rounded-[11px] border transition-all duration-200 hover:-translate-x-0.5 hover:bg-[#F4F0EA]"
           style={{ borderColor: "rgba(174,123,67,0.24)" }}
         >
           <img
             src={item.icon}
             alt=""
             aria-hidden="true"
-            className="h-7 w-7 shrink-0"
+            className="h-[22px] w-[22px] shrink-0"
           />
         </a>
       ))}
