@@ -29,8 +29,8 @@ export default function App() {
         onContactClick={scrollToContact}
       />
       <ReliabilitySection onContactClick={scrollToContact} />
-      <TypesSection onContactClick={scrollToContact} />
       <CasesSection onContactClick={scrollToContact} />
+      <TypesSection onContactClick={scrollToContact} />
       <ProcessSection />
       <FinalLeadSection />
       <LeadRequestSection faqOpen={faqOpen} setFaqOpen={setFaqOpen} />
