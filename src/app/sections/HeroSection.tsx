@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import { CONTACTS } from "../contacts";
 import { heroAdvantages } from "../data";
 import { COLORS } from "../theme";
 import { Button, LogoMark } from "../components/ui";
@@ -55,12 +56,12 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
           <div className="hidden items-center gap-5 md:flex">
             <a
               className="text-[15px] font-extrabold whitespace-nowrap"
-              href="tel:+74951186060"
+              href={CONTACTS.phone.href}
               data-goal="phone_click"
               onClick={() => trackGoal("phone_click")}
               style={{ color: "#071017" }}
             >
-              +7 (495) 118-60-60
+              {CONTACTS.phone.label}
             </a>
             <Button
               variant="bronze"
@@ -73,7 +74,7 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
 
           <div className="flex items-center gap-2 md:hidden">
             <a
-              href="tel:+74951186060"
+              href={CONTACTS.phone.href}
               data-goal="phone_click"
               onClick={() => trackGoal("phone_click")}
               className="flex h-10 items-center justify-center rounded-[14px] px-2.5 text-[12px] font-extrabold whitespace-nowrap min-[390px]:px-3 min-[390px]:text-[13px]"
@@ -84,7 +85,7 @@ export function HeroSection({ menuOpen, setMenuOpen, onContactClick }: Props) {
               }}
               aria-label="Позвонить"
             >
-              +7 (495) 118-60-60
+              {CONTACTS.phone.label}
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}

@@ -2,24 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import maxIcon from "../../assets/max.svg";
 import telegramIcon from "../../assets/tg.svg";
 import whatsappIcon from "../../assets/whatsapp.svg";
+import { CONTACTS as CONTACT_LINKS } from "../contacts";
 import { trackGoal } from "../utils/analytics";
 
 const CONTACTS = [
   {
-    label: "WhatsApp",
-    href: "https://wa.me/74951186060",
+    label: CONTACT_LINKS.whatsapp.label,
+    href: CONTACT_LINKS.whatsapp.href,
     goal: "whatsapp_click" as const,
     icon: whatsappIcon,
   },
   {
-    label: "Telegram",
-    href: "https://t.me/khrebetnavesa",
+    label: CONTACT_LINKS.telegram.label,
+    href: CONTACT_LINKS.telegram.href,
     goal: "telegram_click" as const,
     icon: telegramIcon,
   },
   {
-    label: "Max",
-    href: "https://max.ru/khrebetnavesa",
+    label: CONTACT_LINKS.max.label,
+    href: CONTACT_LINKS.max.href,
     goal: "max_click" as const,
     icon: maxIcon,
   },
