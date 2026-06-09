@@ -3,6 +3,10 @@ export const CONTACTS = {
     label: "+7 (495) 627-74-27",
     href: "tel:+74956277427",
   },
+  email: {
+    label: "info@mail.hrebetnavesa.ru",
+    href: "mailto:info@mail.hrebetnavesa.ru",
+  },
   whatsapp: {
     label: "WhatsApp",
     href: "https://wa.me/79915870787",

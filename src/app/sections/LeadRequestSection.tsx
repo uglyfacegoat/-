@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Check, Plus, Send, ShieldCheck } from "lucide-react";
-import { faqs, TYPES } from "../data";
+import { faqs } from "../data";
 import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
 import { formatRuPhone, isValidRuPhone } from "../utils/phone";
@@ -13,7 +13,6 @@ type Props = {
 
 export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
   const [name, setName] = useState("");
-  const [type, setType] = useState(TYPES[1]);
   const [comment, setComment] = useState("");
   const [phone, setPhone] = useState("");
   const [trap, setTrap] = useState("");
@@ -214,21 +213,6 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   {error}
                 </div>
               )}
-
-              <select
-                value={type}
-                onChange={(event) => setType(event.target.value)}
-                className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
-                style={{
-                  border: `1px solid ${COLORS.border}`,
-                  color: COLORS.text2,
-                  background: COLORS.warmBg,
-                }}
-              >
-                {TYPES.map((item) => (
-                  <option key={item}>{item}</option>
-                ))}
-              </select>
 
               <textarea
                 value={comment}
