@@ -4,6 +4,7 @@ import { Check, Plus, Send, ShieldCheck } from "lucide-react";
 import { faqs } from "../data";
 import { COLORS } from "../theme";
 import { trackGoal } from "../utils/analytics";
+import { isLeadEmailConfigReady, sendLeadRequest } from "../utils/lead-email";
 import { formatRuPhone, isValidRuPhone } from "../utils/phone";
 
 type Props = {
@@ -18,17 +19,46 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
   const [trap, setTrap] = useState("");
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitLead = (event: FormEvent) => {
+  const submitLead = async (event: FormEvent) => {
     event.preventDefault();
     if (trap) return;
+
+    if (!isLeadEmailConfigReady()) {
+      setError("Заполните почтовые переменные в .env");
+      return;
+    }
+
     if (!isValidRuPhone(phone)) {
       setError("Укажите номер в формате +7 (9XX) XXX-XX-XX");
       return;
     }
+
     setError("");
-    trackGoal("lead_submit");
-    setSent(true);
+    setIsSubmitting(true);
+
+    try {
+      await sendLeadRequest({
+        name: name.trim(),
+        phone,
+        type: "Заявка на расчет",
+        comment: comment.trim(),
+      });
+
+      trackGoal("lead_submit");
+      setSent(true);
+      setName("");
+      setComment("");
+      setPhone("");
+    } catch {
+      setError(
+        "Не удалось отправить заявку. Проверьте настройки .env и почтовый сервис.",
+      );
+      setSent(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -181,6 +211,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   placeholder="Ваше имя"
+                  disabled={isSubmitting}
                   className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                   style={{
                     border: `1px solid ${COLORS.border}`,
@@ -196,6 +227,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                   }
                   placeholder="+7 (9XX) XXX-XX-XX"
                   inputMode="tel"
+                  disabled={isSubmitting}
                   className="h-14 rounded-[14px] px-4 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                   style={{
                     border: `1px solid ${error ? COLORS.bronze : COLORS.border}`,
@@ -219,6 +251,7 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
                 onChange={(event) => setComment(event.target.value)}
                 placeholder="Комментарий: размер, материал, адрес"
                 rows={4}
+                disabled={isSubmitting}
                 className="w-full resize-none rounded-[14px] px-4 py-3 text-[16px] font-bold outline-none transition-colors focus:border-[#AE7B43]"
                 style={{
                   border: `1px solid ${COLORS.border}`,
@@ -237,15 +270,18 @@ export function LeadRequestSection({ faqOpen, setFaqOpen }: Props) {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="h-15 rounded-[16px] text-[17px] font-black uppercase tracking-[0.02em] transition-transform duration-200 hover:-translate-y-0.5"
                 style={{
                   background:
                     "linear-gradient(135deg, #AE7B43 0%, #8E5B2F 100%)",
                   color: COLORS.white,
                   boxShadow: "0 14px 32px rgba(142,91,47,0.28)",
+                  opacity: isSubmitting ? 0.75 : 1,
+                  cursor: isSubmitting ? "wait" : "pointer",
                 }}
               >
-                Получить расчет
+                {isSubmitting ? "Отправляем..." : "Получить расчет"}
               </button>
 
               <p

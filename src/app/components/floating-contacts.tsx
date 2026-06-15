@@ -57,9 +57,7 @@ export function FloatingContacts() {
   return (
     <div
       className={`fixed right-0 top-1/2 z-40 flex -translate-y-1/2 flex-col gap-1 rounded-l-[14px] border border-r-0 bg-white/92 p-1.5 shadow-[0_12px_30px_rgba(31,36,41,0.16)] backdrop-blur transition-all duration-300 ease-out ${
-        isScrolling
-          ? "translate-x-full opacity-0"
-          : "translate-x-0 opacity-100"
+        isScrolling ? "translate-x-full opacity-0" : "translate-x-0 opacity-100"
       }`}
       style={{ borderColor: "rgba(174,123,67,0.24)" }}
       aria-label="Quick contacts"
